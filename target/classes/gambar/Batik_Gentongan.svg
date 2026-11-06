@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="100%" height="100%">
+    
+      <rect width="400" height="260" fill="#16283D" />
+      <g opacity="0.85">
+        <!-- Gelombang Ombak dan Batu Karang Wadasan -->
+        <path d="M 0 100 Q 100 40 200 100 T 400 100 L 400 260 L 0 260 Z" fill="#1E3A5F" />
+        <path d="M 0 140 Q 100 80 200 140 T 400 140 L 400 260 L 0 260 Z" fill="#244B7A" />
+        <path d="M 0 180 Q 100 120 200 180 T 400 180 L 400 260 L 0 260 Z" fill="#C59B27" opacity="0.4" />
+        <!-- Puncak Wadasan -->
+        <path d="M 80 260 L 120 160 L 160 260 Z" fill="#0F172A" />
+        <path d="M 240 260 L 280 140 L 320 260 Z" fill="#0F172A" />
+        <circle cx="280" cy="140" r="6" fill="#C59B27" />
+        <circle cx="120" cy="160" r="5" fill="#E2E8F0" />
+      </g>
+    
+    <!-- Border Museum Elegan -->
+    <rect x="8" y="8" width="384" height="244" fill="none" stroke="#C59B27" stroke-width="2" opacity="0.85" />
+    <rect x="12" y="12" width="376" height="236" fill="none" stroke="#E2E8F0" stroke-width="0.75" opacity="0.6" />
+    <!-- Label Plat Motif -->
+    <rect x="20" y="210" width="360" height="34" rx="4" fill="#0A0604" fill-opacity="0.88" stroke="#C59B27" stroke-width="1" />
+    <text x="32" y="231" font-family="'Cinzel', 'Plus Jakarta Sans', serif" font-size="13" font-weight="bold" fill="#FBF8F1" letter-spacing="0.5">Gentongan Madura</text>
+    <text x="368" y="231" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="600" fill="#C59B27" text-transform="uppercase">Abstrak Warna Warni | alam</text>
+  </svg>

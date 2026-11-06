@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Sistem Informasi Semantik Batik Nusantara</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            soga: {
+              50: '#FAF7F2',
+              100: '#F2ECE1',
+              200: '#E4D6C3',
+              300: '#CDB99F',
+              400: '#A98E6E',
+              500: '#876D4E',
+              600: '#6B5339',
+              700: '#523E2A',
+              800: '#3D2D1E',
+              900: '#2A1E13'
+            },
+            keraton: {
+              gold: '#99732B',
+              goldLight: '#C79E4A',
+              navy: '#151D2A',
+              navyLight: '#232E40'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #2A1E13;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .header-border {
+      border-bottom: 3px double #C79E4A;
+    }
+    .hero-pattern {
+      background-color: #151D2A;
+      background-image: radial-gradient(#99732B 0.75px, transparent 0.75px), radial-gradient(#99732B 0.75px, #151D2A 0.75px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F2ECE1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #A98E6E;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-soga-50 text-soga-900">
+
+  <!-- Header Institusional Formal -->
+  <header class="bg-keraton-navy text-white header-border shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-keraton-gold/20 border border-keraton-gold/40 flex items-center justify-center text-keraton-gold shrink-0">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-[10px] tracking-wider uppercase text-keraton-goldLight font-bold">
+              Kementerian / Portal Kebudayaan Digital
+            </div>
+            <h1 class="text-lg sm:text-xl font-bold font-display tracking-wide text-white leading-tight">
+              SISTEM INFORMASI SEMANTIK BATIK NUSANTARA
+            </h1>
+          </div>
+        </div>
+
+        <!-- Menu Navigasi Modul -->
+        <nav class="flex items-center gap-1.5 overflow-x-auto text-xs font-semibold">
+          <button onclick="switchTab('landing')" id="tab-btn-landing" class="px-3.5 py-1.5 rounded transition bg-keraton-gold text-keraton-navy font-bold">
+            Beranda
+          </button>
+          <button onclick="switchTab('search')" id="tab-btn-search" class="px-3.5 py-1.5 rounded transition text-gray-300 hover:text-white hover:bg-white/5">
+            Katalog & Pencarian Semantik
+          </button>
+          <button onclick="switchTab('knowledge')" id="tab-btn-knowledge" class="px-3.5 py-1.5 rounded transition text-gray-300 hover:text-white hover:bg-white/5">
+            Dasar Pengetahuan Ontologi
+          </button>
+          <button onclick="switchTab('sparql')" id="tab-btn-sparql" class="px-3.5 py-1.5 rounded transition text-gray-300 hover:text-white hover:bg-white/5">
+            Laboratorium SPARQL
+          </button>
+          <button onclick="switchTab('guide')" id="tab-btn-guide" class="px-3.5 py-1.5 rounded transition text-gray-300 hover:text-white hover:bg-white/5">
+            Panduan NetBeans
+          </button>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Kontainer Utama -->
+  <main class="flex-1 w-full">
+
+    <!-- ============================================== -->
+    <!-- MODUL 1: BERANDA & LANDING PAGE UTAMA          -->
+    <!-- ============================================== -->
+    <section id="tab-landing" class="space-y-12 pb-12">
+      
+      <!-- Hero Section Formal -->
+      <div class="hero-pattern text-white py-14 border-b border-keraton-gold/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-7 space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-keraton-gold/20 border border-keraton-gold/40 text-keraton-goldLight text-xs font-semibold uppercase tracking-wider">
+                <i data-lucide="award" class="w-4 h-4"></i> UNESCO Intangible Cultural Heritage of Humanity
+              </div>
+              <h2 class="text-3xl sm:text-4xl font-extrabold font-display leading-tight text-white">
+                Khazanah Warisan Budaya Batik Berbasis Graf Pengetahuan Ontologi
+              </h2>
+              <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-xl">
+                Platform penelusuran digital berbasis Web Semantik (OWL 2 / RDF) yang menghubungkan 48 ragam kain batik nusantara, 29 kelas taksonomi, makna filosofis motif sakral, teknik kriya canting tradisional, serta konteks seremonial daur hidup adat istiadat Indonesia.
+              </p>
+              
+              <div class="flex flex-wrap items-center gap-3 pt-2 text-xs font-semibold">
+                <button onclick="switchTab('search')" class="px-5 py-2.5 bg-keraton-gold hover:bg-keraton-goldLight text-keraton-navy rounded-lg shadow font-bold transition flex items-center gap-2">
+                  <i data-lucide="search" class="w-4 h-4"></i> Mulai Pencarian Semantik
+                </button>
+                <button onclick="switchTab('knowledge')" class="px-5 py-2.5 bg-keraton-navyLight hover:bg-white/10 text-white rounded-lg border border-keraton-gold/40 transition flex items-center gap-2">
+                  <i data-lucide="book-open" class="w-4 h-4"></i> Eksplorasi Taksonomi Ontologi
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel Statistik Formal -->
+            <div class="lg:col-span-5 bg-keraton-navyLight/90 border border-keraton-gold/30 rounded-xl p-5 shadow-xl space-y-4">
+              <div class="text-xs font-bold uppercase tracking-wider text-keraton-goldLight border-b border-gray-700 pb-2">
+                Metrik Pengetahuan Ontologi Terstruktur
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="p-3 bg-black/30 rounded border border-gray-700/80">
+                  <span class="text-gray-400 block text-[10px] uppercase font-semibold">Kain Batik Terdata</span>
+                  <span class="text-2xl font-bold font-display text-keraton-goldLight">48</span>
+                  <span class="text-[10px] text-gray-400 block mt-0.5">Individu Bernama</span>
+                </div>
+                <div class="p-3 bg-black/30 rounded border border-gray-700/80">
+                  <span class="text-gray-400 block text-[10px] uppercase font-semibold">Kelas Konsep OWL</span>
+                  <span class="text-2xl font-bold font-display text-keraton-goldLight">29</span>
+                  <span class="text-[10px] text-gray-400 block mt-0.5">Hierarki Taksonomi</span>
+                </div>
+                <div class="p-3 bg-black/30 rounded border border-gray-700/80">
+                  <span class="text-gray-400 block text-[10px] uppercase font-semibold">Relasi Objek (Triples)</span>
+                  <span class="text-2xl font-bold font-display text-keraton-goldLight">16</span>
+                  <span class="text-[10px] text-gray-400 block mt-0.5">Object Properties</span>
+                </div>
+                <div class="p-3 bg-black/30 rounded border border-gray-700/80">
+                  <span class="text-gray-400 block text-[10px] uppercase font-semibold">Atribut Literal</span>
+                  <span class="text-2xl font-bold font-display text-keraton-goldLight">29</span>
+                  <span class="text-[10px] text-gray-400 block mt-0.5">Datatype Properties</span>
+                </div>
+              </div>
+              <div class="text-[11px] text-gray-400 pt-1">
+                Namespace: <code class="text-keraton-goldLight font-mono">http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#</code>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+
+        <!-- Showcase 4 Mahakarya Utama (Curated Masterpieces) dengan Gambar -->
+        <div class="space-y-4">
+          <div class="border-b border-soga-200 pb-3 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-keraton-gold">Kurasi Khusus Warisan Keraton & Pesisir</span>
+              <h3 class="text-xl font-bold font-display text-soga-900 mt-0.5">
+                Sorotan 4 Mahakarya Batik Nusantara
+              </h3>
+            </div>
+            <button onclick="switchTab('search')" class="text-xs font-semibold text-soga-700 hover:text-soga-900 underline flex items-center gap-1">
+              Lihat Seluruh 48 Koleksi <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="masterpiece-grid">
+            <!-- Dimuat via JS (Parang Rusak, Megamendung, Kawung, Truntum) -->
+          </div>
+        </div>
+
+        <!-- Koridor Geografis Sentra Batik Nusantara -->
+        <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-keraton-gold">Sebaran Geografis Nusantara</span>
+            <h3 class="text-lg font-bold font-display text-soga-900 mt-0.5">
+              Koridor Kebudayaan & Sentra Produksi Batik
+            </h3>
+            <p class="text-xs text-gray-600 mt-1">
+              Setiap sentra batik memiliki karakteristik visual dan teknik perintangan malam yang khas, dipengaruhi oleh kondisi geografis dan sejarah akulturasi wilayah.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">1. Jawa Pedalaman (Yogya & Surakarta)</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Didominasi warna sogan cokelat, indigo nila, dan putih mori. Motif sarat aturan keraton (Parang Barong, Kawung, Sido Asih, Truntum) dengan pakem geometris simetris.
+              </p>
+            </div>
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">2. Jawa Pesisiran (Pekalongan, Cirebon, Lasem)</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Pewarnaan cerah akulturasi Tiongkok dan Eropa. Mengangkat motif flora buketan, mega mendung, burung hong, dan satwa laut dengan garis kontur dinamis.
+              </p>
+            </div>
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">3. Sumatera (Jambi, Bengkulu, Minangkabau)</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Motif ikonik daerah seperti Angso Duo (Jambi), kaligrafi Arab & bunga Rafflesia Besurek (Bengkulu), serta pewarnaan alami rendaman lumpur Tanah Liek (Minang).
+              </p>
+            </div>
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">4. Kalimantan (Pontianak, Palangkaraya)</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Mengangkat kearifan lokal seperti motif Corak Insang sungai Kapuas dan filosofi pohon kehidupan kosmis Batang Garing masyarakat Dayak.
+              </p>
+            </div>
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">5. Bali & Nusa Tenggara</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Mengintegrasikan ornamen ukiran pura, topeng Barong Bali, kembang teratai, serta perpaduan harmoni ritual keagamaan Hindu dan kriya tenun lokal.
+              </p>
+            </div>
+            <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200 space-y-1">
+              <strong class="text-soga-900 block font-bold">6. Papua (Asmat & Jayapura)</strong>
+              <p class="text-gray-600 text-[11px] leading-relaxed">
+                Garis ekspresif ornamen ukiran kayu suku Asmat, perisai perang tifa, serta siluet anggun burung Cendrawasih dengan pewarnaan tanah dan terakota.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- MODUL 2: KATALOG & TEMU KEMBALI SEMANTIK       -->
+    <!-- ============================================== -->
+    <section id="tab-search" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      
+      <!-- Panel Input Pencarian -->
+      <div class="bg-white rounded-xl p-5 border border-soga-200 shadow-sm space-y-4">
+        
+        <div class="space-y-1.5">
+          <label for="search-input" class="block text-xs font-bold uppercase tracking-wider text-soga-700">
+            Kueri Temu Kembali Semantik (Mendukung Sinonim Budaya & Konsep Ontologi)
+          </label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="search-input" 
+              oninput="handleSearch()"
+              placeholder="Masukkan kata kunci pencarian (contoh: manten, duka, ikan, bunga, jogja, canting, lilin, soga)..."
+              class="w-full pl-4 pr-24 py-3 bg-soga-50 border border-soga-300 rounded-lg text-soga-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-keraton-gold text-sm font-medium"
+            />
+            <button 
+              onclick="clearSearch()"
+              id="btn-clear" 
+              class="hidden absolute inset-y-0 right-2 px-3 text-gray-400 hover:text-soga-900 text-xs font-semibold">
+              Hapus
+            </button>
+          </div>
+        </div>
+
+        <!-- Tesaurus Sinonim Cepat -->
+        <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+          <span class="text-soga-600 font-semibold mr-1">Rekomendasi Kueri Sinonim:</span>
+          <button onclick="setQuery('manten')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "manten" <span class="text-gray-500 font-normal">➔ Pernikahan Adat</span>
+          </button>
+          <button onclick="setQuery('ikan')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "ikan" <span class="text-gray-500 font-normal">➔ Motif Fauna</span>
+          </button>
+          <button onclick="setQuery('bunga')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "bunga" <span class="text-gray-500 font-normal">➔ Motif Flora</span>
+          </button>
+          <button onclick="setQuery('lelayu')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "lelayu" <span class="text-gray-500 font-normal">➔ Upacara Kematian</span>
+          </button>
+          <button onclick="setQuery('istana')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "istana" <span class="text-gray-500 font-normal">➔ Konteks Keraton</span>
+          </button>
+          <button onclick="setQuery('soga')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "soga" <span class="text-gray-500 font-normal">➔ Pewarna Alami</span>
+          </button>
+          <button onclick="setQuery('canting')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "canting" <span class="text-gray-500 font-normal">➔ Batik Tulis</span>
+          </button>
+          <button onclick="setQuery('lilin')" class="px-2.5 py-1 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            "lilin" <span class="text-gray-500 font-normal">➔ Bahan Malam</span>
+          </button>
+        </div>
+
+        <!-- Panel Penalaran Semantik Formal -->
+        <div id="semantic-reasoning-box" class="hidden p-3.5 rounded-lg bg-amber-50 border-l-4 border-keraton-gold text-xs text-soga-900 space-y-1">
+          <div class="font-bold flex items-center justify-between">
+            <span class="text-soga-800 uppercase tracking-wider text-[11px]">Ekspansi Kueri Semantik (Semantic Query Expansion):</span>
+            <span id="semantic-concept-badge" class="px-2 py-0.5 bg-amber-200 text-soga-900 rounded font-mono font-semibold"></span>
+          </div>
+          <p id="semantic-reasoning-text" class="leading-relaxed text-soga-700 font-normal"></p>
+        </div>
+
+        <!-- Filter Multi-dimensi -->
+        <div class="pt-3 border-t border-soga-100 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Teknik Manufaktur:</label>
+            <select id="filter-jenis" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="all">Semua Teknik</option>
+              <option value="batik_tulis">Batik Tulis</option>
+              <option value="batik_cap">Batik Cap</option>
+              <option value="batik_cetak">Batik Cetak</option>
+              <option value="batik_kombinasi">Batik Kombinasi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Kategori Motif:</label>
+            <select id="filter-motif" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="all">Semua Kategori</option>
+              <option value="flora">Flora</option>
+              <option value="fauna">Fauna</option>
+              <option value="geometris">Geometris</option>
+              <option value="alam">Alam</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Konteks Acara:</label>
+            <select id="filter-acara" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="all">Semua Acara</option>
+              <option value="pernikahan">Pernikahan Adat</option>
+              <option value="kelahiran">Mitoni / Kelahiran</option>
+              <option value="kematian">Lelayu / Kematian</option>
+              <option value="kerajaan">Lingkungan Keraton</option>
+              <option value="busana_formal">Busana Formal</option>
+              <option value="souvenir">Cendera Mata</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Jenis Pewarna:</label>
+            <select id="filter-warna" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="all">Semua Pewarna</option>
+              <option value="alami">Alami</option>
+              <option value="sintetis">Sintetis</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Wilayah Pulau:</label>
+            <select id="filter-pulau" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="all">Seluruh Pulau</option>
+              <option value="Jawa">Jawa</option>
+              <option value="Sumatera">Sumatera</option>
+              <option value="Kalimantan">Kalimantan</option>
+              <option value="Papua">Papua</option>
+              <option value="Bali">Bali</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Urutan Data:</label>
+            <select id="filter-sort" onchange="handleSearch()" class="w-full bg-soga-50 border border-soga-300 rounded px-2 py-1.5 font-medium text-xs">
+              <option value="relevance">Relevansi</option>
+              <option value="name-asc">Nama (A-Z)</option>
+              <option value="name-desc">Nama (Z-A)</option>
+              <option value="region">Wilayah Asal</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Baris Hasil & Reset -->
+        <div class="flex items-center justify-between text-xs text-gray-600 pt-2 border-t border-soga-100">
+          <span>Ditemukan: <strong id="results-count" class="text-soga-900">0</strong> dari 48 entitas batik</span>
+          <button onclick="resetFilters()" class="text-soga-700 hover:text-soga-900 font-semibold underline">
+            Reset Semua Filter
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Grid Kartu Batik Lengkap dengan Gambar -->
+      <div id="batik-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Dimuat via JS -->
+      </div>
+
+      <!-- State Kosong -->
+      <div id="empty-state" class="hidden text-center py-12 bg-white rounded-xl border border-soga-200 p-6">
+        <h3 class="text-sm font-bold text-soga-900">Tidak Ditemukan Entitas yang Memenuhi Kriteria</h3>
+        <p class="text-xs text-gray-500 mt-1 max-w-sm mx-auto">
+          Silakan sesuaikan kata kunci atau gunakan salah satu rekomendasi kueri sinonim semantik di atas.
+        </p>
+        <button onclick="resetFilters()" class="mt-3 px-3.5 py-1.5 bg-keraton-gold text-keraton-navy font-semibold text-xs rounded">
+          Tampilkan Seluruh Koleksi
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- MODUL 3: DASAR PENGETAHUAN ONTOLOGI            -->
+    <!-- ============================================== -->
+    <section id="tab-knowledge" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      
+      <!-- Deskripsi Domain Ontologi -->
+      <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-4">
+        <div>
+          <span class="text-[11px] font-bold text-keraton-gold uppercase tracking-wider">Spesifikasi Ontologi Formal</span>
+          <h2 class="text-xl font-bold font-display text-soga-900 mt-0.5">
+            Model Domain & Taksonomi Ontologi Batik Nusantara
+          </h2>
+          <p class="text-xs text-gray-700 leading-relaxed mt-2">
+            Ontologi ini memodelkan domain kebudayaan batik Indonesia berbasis ontologi formal Web Ontology Language (OWL 2). Domain ini mengaitkan konsep kain batik dengan karakteristik material, proses manufaktur tradisional, makna filosofis motif, serta konteks seremonial adat istiadat.
+          </p>
+        </div>
+
+        <div class="bg-soga-50 p-3.5 rounded-lg border border-soga-200 font-mono text-[11px] space-y-1 text-soga-800">
+          <div><strong class="text-gray-500">Ontology URI:</strong> http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3</div>
+          <div><strong class="text-gray-500">Prefix Standar:</strong> : &lt;http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#&gt;</div>
+          <div><strong class="text-gray-500">Status Warisan:</strong> UNESCO Intangible Cultural Heritage of Humanity (2 Oktober 2009)</div>
+        </div>
+      </div>
+
+      <!-- Taksonomi Hirarki Kelas (owl:Class) -->
+      <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-4">
+        <div>
+          <h3 class="text-base font-bold text-soga-900">
+            Hirarki Taksonomi Kelas (owl:Class SubClassOf Structure)
+          </h3>
+          <p class="text-xs text-gray-500">
+            Pohon relasi hirarkis yang mendasari mekanisme inferensi dan penalaran semantik pada basis pengetahuan.
+          </p>
+        </div>
+
+        <div id="taxonomy-tree" class="space-y-3">
+          <!-- Dimuat via JS -->
+        </div>
+      </div>
+
+      <!-- Ensiklopedia Pengetahuan Budaya & Filosofis -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <div class="bg-white rounded-xl p-5 border border-soga-200 shadow-sm space-y-3">
+          <h4 class="text-sm font-bold text-soga-900 border-b border-soga-100 pb-2">
+            Motif Larangan Keraton (Awisan Dalem)
+          </h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Dalam tatanan adat Keraton Surakarta dan Yogyakarta, properti <code class="bg-soga-100 px-1 py-0.5 rounded text-soga-800">aturanPemakaian</code> membatasi pemakaian motif sakral:
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Parang Rusak Barong:</strong> Hanya diperkenankan untuk Raja atau Sultan pada upacara kebesaran kenegaraan. Mengandung makna spiritual pengendalian hawa nafsu dan keteguhan kepemimpinan.
+            </div>
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Motif Huk:</strong> Terdiri atas unsur binatang buas, kerang, dan sayap garuda. Diperuntukkan secara eksklusif bagi keluarga inti raja dan putra mahkota.
+            </div>
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Kawung & Parang Klithik:</strong> Mengikuti hierarki derajat kebangsawan keraton berdasarkan garis keturunan langsung.
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-soga-200 shadow-sm space-y-3">
+          <h4 class="text-sm font-bold text-soga-900 border-b border-soga-100 pb-2">
+            Konteks Ritual Daur Hidup (Lifecycle Adat)
+          </h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Kelas <code class="bg-soga-100 px-1 py-0.5 rounded text-soga-800">adat</code> mengklasifikasikan pemakaian motif pada fase transisi kehidupan manusia:
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Pernikahan (Sido Asih & Truntum):</strong> Motif Truntum melambangkan cinta tulus yang senantiasa bersemi kembali. Motif Sido Asih menyimbolkan harapan agar kedua mempelai saling mengasihi dalam keharmonisan rumah tangga.
+            </div>
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Kelahiran (Mitoni / Tingkeban):</strong> Motif Pamiluto dikenakan pada upacara 7 bulan kehamilan sebagai doa agar persalinan berjalan lancar dan sang anak berbudi pekerti luhur.
+            </div>
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+              <strong class="text-soga-800">Kematian (Slobok):</strong> Ornamen geometris belah ketupat bermakna mempermudah (longgar/slobok) perjalanan arwah menghadap Sang Pencipta secara damai.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Kamus Properti Ontologi -->
+      <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-3">
+        <h3 class="text-base font-bold text-soga-900">
+          Kamus Properti Ontologi (Object & Datatype Properties)
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-soga-100 text-soga-900 border-b border-soga-200 font-semibold">
+                <th class="p-2.5">Kategori</th>
+                <th class="p-2.5">Identifier Properti</th>
+                <th class="p-2.5">Domain</th>
+                <th class="p-2.5">Range</th>
+                <th class="p-2.5">Definisi Semantik</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 text-gray-700">
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-blue-100 text-blue-900 rounded font-mono text-[10px]">owl:ObjectProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">berasalDari</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">asal_daerah_nusantara</td>
+                <td class="p-2.5">Relasi ke instansi kota atau kabupaten sentra produksi batik.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-blue-100 text-blue-900 rounded font-mono text-[10px]">owl:ObjectProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">memilikiMotif</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">motif</td>
+                <td class="p-2.5">Relasi ke ornamen ragam hias (flora, fauna, geometris, atau alam).</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-blue-100 text-blue-900 rounded font-mono text-[10px]">owl:ObjectProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">dipakaiPadaAcara</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">kegunaan / adat</td>
+                <td class="p-2.5">Relasi ke konteks seremonial dan upacara adat di mana kain dikenakan.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-blue-100 text-blue-900 rounded font-mono text-[10px]">owl:ObjectProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">menggunakanPewarnaan</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">pewarnaan</td>
+                <td class="p-2.5">Relasi ke zat pewarna alami (soga, indigo) atau sintetis (remazol, napthol).</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-green-100 text-green-900 rounded font-mono text-[10px]">owl:DatatypeProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">maknaFilosofis</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">xsd:string</td>
+                <td class="p-2.5">Nilai kearifan lokal, doa, serta pesan moral simbolik pada motif.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-green-100 text-green-900 rounded font-mono text-[10px]">owl:DatatypeProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">aturanPemakaian</td>
+                <td class="p-2.5 font-mono">Kain_Batik</td>
+                <td class="p-2.5 font-mono">xsd:string</td>
+                <td class="p-2.5">Ketentuan norma adat mengenai siapa yang berhak mengenakan kain tersebut.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5"><span class="px-1.5 py-0.5 bg-green-100 text-green-900 rounded font-mono text-[10px]">owl:DatatypeProperty</span></td>
+                <td class="p-2.5 font-mono font-bold text-soga-900">alatUtama</td>
+                <td class="p-2.5 font-mono">teknik_pembuatan</td>
+                <td class="p-2.5 font-mono">xsd:string</td>
+                <td class="p-2.5">Peralatan instrumen kriya (canting tulis, canting cap tembaga, rakel cetak).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- MODUL 4: LABORATORIUM SPARQL                   -->
+    <!-- ============================================== -->
+    <section id="tab-sparql" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+      
+      <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-4">
+        <div>
+          <span class="text-[11px] font-bold text-keraton-gold uppercase tracking-wider">SPARQL 1.1 Query Engine</span>
+          <h3 class="text-base font-bold text-soga-900 mt-0.5">
+            Eksekusi Kueri SPARQL terhadap Graf Pengetahuan RDF
+          </h3>
+          <p class="text-xs text-gray-600 mt-1">
+            Jalankan kueri SPARQL untuk mengekstrak relasi semantik langsung dari model data Jena.
+          </p>
+        </div>
+
+        <!-- Tombol Preset -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <span class="font-semibold text-gray-600 mr-1">Preset Kueri:</span>
+          <button onclick="loadSparqlPreset(1)" class="px-3 py-1.5 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            Kueri 1: Batik Pernikahan Adat
+          </button>
+          <button onclick="loadSparqlPreset(2)" class="px-3 py-1.5 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            Kueri 2: Motif Fauna & Pewarna Alami
+          </button>
+          <button onclick="loadSparqlPreset(3)" class="px-3 py-1.5 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            Kueri 3: Batik Asal Jawa & Awisan Keraton
+          </button>
+          <button onclick="loadSparqlPreset(4)" class="px-3 py-1.5 bg-soga-100 hover:bg-soga-200 text-soga-800 rounded border border-soga-200 font-medium">
+            Kueri 4: Relasi Taksonomi SubClassOf
+          </button>
+        </div>
+
+        <!-- Textarea Editor -->
+        <div>
+          <textarea id="sparql-textarea" rows="8" class="w-full font-mono text-xs bg-slate-900 text-emerald-400 p-3.5 rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-keraton-gold"></textarea>
+          <div class="flex justify-end mt-2">
+            <button onclick="runSparqlSimulator()" class="px-4 py-2 bg-keraton-gold text-keraton-navy font-bold text-xs rounded hover:bg-keraton-goldLight transition">
+              Jalankan Kueri SPARQL
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Tabel -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-semibold text-gray-600">
+            <span>Hasil Eksekusi Kueri (Tupel Hasil):</span>
+            <span id="sparql-result-count" class="font-mono">0 baris ditemukan</span>
+          </div>
+          <div class="overflow-x-auto bg-slate-900 text-slate-100 rounded-lg p-3 font-mono text-xs max-h-72 overflow-y-auto" id="sparql-result-table"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- MODUL 5: PANDUAN EKSEKUSI NETBEANS            -->
+    <!-- ============================================== -->
+    <section id="tab-guide" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+      
+      <div class="bg-white rounded-xl p-6 border border-soga-200 shadow-sm space-y-4 text-xs leading-relaxed text-gray-800">
+        <h3 class="text-base font-bold text-soga-900 border-b border-soga-100 pb-2">
+          Konfigurasi dan Prosedur Eksekusi di Apache NetBeans
+        </h3>
+
+        <div class="p-4 bg-soga-50 rounded-lg border border-soga-200 space-y-2">
+          <h4 class="font-bold text-soga-900 text-xs uppercase tracking-wider">
+            Metode 1: Eksekusi Langsung Melalui NetBeans (Run Project / F6)
+          </h4>
+          <p>
+            Proyek ini telah dikonfigurasikan dengan <code class="font-mono text-soga-900">batikgui.BatikServer</code> sebagai main class pada berkas <code class="font-mono text-soga-900">pom.xml</code> dan <code class="font-mono text-soga-900">nbactions.xml</code>.
+          </p>
+          <ol class="list-decimal list-inside space-y-1 ml-1 text-gray-700">
+            <li>Buka proyek <strong>batik-gui</strong> di Apache NetBeans IDE.</li>
+            <li>Klik tombol <strong>Run Project</strong> atau tekan tombol <kbd class="px-1.5 py-0.5 bg-white border border-gray-300 rounded font-mono text-[10px]">F6</kbd>.</li>
+            <li>NetBeans mengeksekusi kelas Java <code>BatikServer</code>, memuat berkas ontologi <code>batik-lengkap.rdf</code> via Apache Jena, menyajikan API pada port <strong>8080</strong>, dan <strong>membuka peramban web secara otomatis</strong>.</li>
+          </ol>
+        </div>
+
+        <div class="p-4 bg-soga-50 rounded-lg border border-soga-200 space-y-2">
+          <h4 class="font-bold text-soga-900 text-xs uppercase tracking-wider">
+            Metode 2: Eksekusi Mode Pengembang Next.js
+          </h4>
+          <p>
+            Struktur Next.js lengkap tersedia pada direktori kerja untuk keperluan modifikasi komponen secara langsung:
+          </p>
+          <pre class="bg-slate-900 text-emerald-400 p-2.5 rounded font-mono text-xs">npm.cmd run dev</pre>
+          <p class="text-gray-500">
+            Aplikasi Next.js berjalan pada port <code>http://localhost:3000</code> dengan dukungan hot-reload.
+          </p>
+        </div>
+
+        <div class="p-4 bg-soga-50 rounded-lg border border-soga-200 space-y-2">
+          <h4 class="font-bold text-soga-900 text-xs uppercase tracking-wider">
+            Metode 3: Eksekusi Melalui Maven CLI NetBeans
+          </h4>
+          <pre class="bg-slate-900 text-emerald-400 p-2.5 rounded font-mono text-xs">"C:\Program Files\NetBeans-24\netbeans\java\maven\bin\mvn.cmd" compile exec:java</pre>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal Detail & Graf Relasi Ontologi -->
+  <div id="batik-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-soga-300">
+      
+      <!-- Modal Header dengan Gambar -->
+      <div class="relative bg-keraton-navy text-white rounded-t-xl overflow-hidden border-b border-keraton-gold/40">
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-20 px-2.5 py-1 rounded bg-black/60 hover:bg-black/80 text-white text-xs font-semibold backdrop-blur-sm">
+          Tutup
+        </button>
+        
+        <!-- Gambar Motif Header -->
+        <div class="h-44 w-full overflow-hidden bg-black/40 relative">
+          <img id="modal-img" src="" alt="Motif Batik" class="w-full h-full object-cover opacity-90" />
+          <div class="absolute inset-0 bg-gradient-to-t from-keraton-navy via-keraton-navy/50 to-transparent"></div>
+        </div>
+
+        <div class="p-5 absolute bottom-0 left-0 right-0 z-10">
+          <span id="modal-jenis-badge" class="px-2 py-0.5 bg-keraton-gold text-keraton-navy rounded text-[11px] font-bold uppercase tracking-wider"></span>
+          <h3 id="modal-title" class="text-2xl font-bold font-display mt-1 text-white"></h3>
+          <p id="modal-daerah" class="text-xs text-gray-300 mt-0.5"></p>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-5 text-xs text-gray-800">
+        
+        <!-- Makna Filosofis -->
+        <div class="p-3.5 bg-soga-50 rounded-lg border border-soga-200">
+          <div class="font-bold text-soga-800 uppercase tracking-wider text-[11px] mb-1">
+            Makna Filosofis Motif (Nilai Semantik)
+          </div>
+          <p id="modal-filosofi" class="leading-relaxed text-soga-900 italic"></p>
+        </div>
+
+        <!-- Deskripsi & Sejarah -->
+        <div class="space-y-2 leading-relaxed">
+          <div>
+            <strong class="text-soga-900 block mb-0.5">Deskripsi:</strong>
+            <p id="modal-deskripsi" class="text-gray-700"></p>
+          </div>
+          <div id="modal-sejarah-wrapper">
+            <strong class="text-soga-900 block mb-0.5">Sejarah & Tradisi:</strong>
+            <p id="modal-sejarah" class="text-gray-700"></p>
+          </div>
+        </div>
+
+        <!-- Graf Relasi Entitas Ontologi -->
+        <div>
+          <div class="font-bold text-soga-900 uppercase tracking-wider text-[11px] mb-2">
+            Graf Pengetahuan Entitas (Entity Knowledge Graph Triples)
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs" id="modal-relations-grid"></div>
+        </div>
+
+        <!-- Atribut Fisik & Aturan Adat -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="p-2.5 bg-gray-50 rounded border border-gray-200">
+            <span class="text-gray-500 block text-[10px] uppercase font-semibold">Aturan Pemakaian:</span>
+            <span id="modal-aturan" class="font-medium text-soga-900"></span>
+          </div>
+          <div class="p-2.5 bg-gray-50 rounded border border-gray-200">
+            <span class="text-gray-500 block text-[10px] uppercase font-semibold">Golongan Pemakai:</span>
+            <span id="modal-golongan" class="font-medium text-soga-900"></span>
+          </div>
+          <div class="p-2.5 bg-gray-50 rounded border border-gray-200">
+            <span class="text-gray-500 block text-[10px] uppercase font-semibold">Warna Dominan:</span>
+            <span id="modal-warna" class="font-medium text-soga-900"></span>
+          </div>
+          <div class="p-2.5 bg-gray-50 rounded border border-gray-200">
+            <span class="text-gray-500 block text-[10px] uppercase font-semibold">Tingkat Kerumitan:</span>
+            <span id="modal-kerumitan" class="font-medium text-soga-900"></span>
+          </div>
+        </div>
+
+        <!-- Serialisasi Turtle -->
+        <div>
+          <div class="flex items-center justify-between font-semibold text-gray-500 text-[11px] mb-1">
+            <span>Format Serialisasi RDF Turtle (W3C Standard):</span>
+            <button onclick="salinTurtle()" class="text-keraton-gold hover:underline text-[11px]">Salin Sintaks</button>
+          </div>
+          <pre id="modal-turtle" class="p-3 bg-slate-900 text-emerald-400 rounded-lg font-mono text-[11px] overflow-x-auto max-h-36"></pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Institusional -->
+  <footer class="bg-keraton-navy text-gray-400 py-6 border-t border-keraton-gold/30 mt-auto text-xs text-center">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p class="font-semibold text-white">Sistem Ontologi & Temu Kembali Semantik Batik Nusantara</p>
+      <p class="text-gray-400 text-[11px]">
+        Berdasarkan Basis Pengetahuan Terstruktur OWL 2 / Apache Jena RDF Framework
+      </p>
+      <p class="text-[10px] text-gray-500">
+        Ditetapkan oleh UNESCO sebagai Karya Agung Warisan Budaya Lisan dan Takbenda Manusia
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIKA APLIKASI -->
+  <script>
+    const ONTOLOGY_BUNDLE = {"metadata":{"title":"Batik Ontology Knowledge Base & Semantic Search","version":"1.0","ontologyUri":"http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3","unescoStatus":"Warisan Budaya Takbenda Dunia (2 Oktober 2009)","stats":{"totalBatiks":48,"totalClasses":29,"totalObjectProps":16,"totalDataProps":29,"totalIndividuals":160}},"batiks":[{"id":"Batik_Angso_Duo","nama":"Angso Duo Jambi","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Jambi dengan motif sepasang angsa.","maknaFilosofis":"Dua angsa melambangkan kesetiaan dan kerukunan; ikon Kota Jambi.","sejarah":"Mengangkat ikon Angso Duo yang menjadi lambang Kota Jambi.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Jambi","nama":"Kota Jambi","provinsi":"Jambi","pulau":"Sumatera"},"motif":{"id":"Motif_Angso_Duo","nama":"Angso Duo","kategori":"fauna","makna":"Kesetiaan dan kerukunan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Asem_Arang","nama":"Asem Arang Semarang","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif pohon asam dan daunnya, ikon batik Semarangan.","maknaFilosofis":"Mengingatkan asal-usul nama Semarang dari pohon asam yang jarang (arang).","sejarah":"Terkait legenda asal nama Semarang dari &quot;asem arang&quot;.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Semarang","nama":"Kota Semarang","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Asem_Arang","nama":"Asem Arang","kategori":"flora","makna":"Asal-usul nama Kota Semarang"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Asmat","nama":"Asmat Papua","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Papua dengan motif yang diangkat dari ukiran suku Asmat.","maknaFilosofis":"Mencerminkan penghormatan leluhur dan hubungan manusia dengan alam dalam seni ukir Asmat.","sejarah":"Mengangkat seni ukir suku Asmat ke dalam kain batik.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat dan hitam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Asmat","nama":"Kabupaten Asmat","provinsi":"Papua Selatan","pulau":"Papua"},"motif":{"id":"Motif_Ukiran_Asmat","nama":"Ukiran Asmat","kategori":"geometris","makna":"Penghormatan leluhur"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"},{"id":"Cendera_Mata","tipe":"souvenir","nama":"Cendera mata (souvenir)"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Barong_Bali","nama":"Barong Bali","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Bali dengan motif Barong, makhluk mitologi pelindung.","maknaFilosofis":"Barong melambangkan kebaikan (dharma) dalam budaya Bali.","sejarah":"Mengangkat Barong sebagai ikon seni dan ritual Bali.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Denpasar","nama":"Kota Denpasar","provinsi":"Bali","pulau":"Bali"},"motif":{"id":"Motif_Barong_Bali","nama":"Barong","kategori":"fauna","makna":"Kebaikan dan perlindungan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"},{"id":"Cendera_Mata","tipe":"souvenir","nama":"Cendera mata (souvenir)"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Batang_Garing","nama":"Batang Garing Kalimantan Tengah","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Kalimantan Tengah dengan motif pohon kehidupan Dayak.","maknaFilosofis":"Batang garing adalah pohon kehidupan dalam kepercayaan Kaharingan masyarakat Dayak Ngaju.","sejarah":"Mengangkat simbol pohon kehidupan Dayak Ngaju.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Palangka_Raya","nama":"Kota Palangka Raya","provinsi":"Kalimantan Tengah","pulau":"Kalimantan"},"motif":{"id":"Motif_Batang_Garing","nama":"Batang Garing","kategori":"flora","makna":"Pohon kehidupan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"},{"id":"Cendera_Mata","tipe":"souvenir","nama":"Cendera mata (souvenir)"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Besurek","nama":"Besurek Bengkulu","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Bengkulu dengan kaligrafi huruf Arab dan motif bunga Rafflesia.","maknaFilosofis":"Besurek berarti bersurat; memadukan huruf Arab dan flora khas Bengkulu.","sejarah":"Berkembang di Bengkulu dengan pengaruh budaya Islam dan flora endemik Rafflesia.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang dan selendang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Bengkulu","nama":"Kota Bengkulu","provinsi":"Bengkulu","pulau":"Sumatera"},"motif":{"id":"Motif_Rafflesia","nama":"Rafflesia","kategori":"flora","makna":"Kebanggaan flora Bengkulu"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Buketan","nama":"Buketan Pekalongan","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif rangkaian bunga (buket) berwarna cerah dengan pengaruh Indo-Eropa.","maknaFilosofis":"Keindahan dan akulturasi budaya Eropa dengan budaya Jawa pesisir.","sejarah":"Berkembang pada masa kolonial; antara lain dipopulerkan oleh Eliza van Zuylen di Pekalongan.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam, cerah","bahanKain":"Katun","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Pekalongan","nama":"Kota Pekalongan","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Buketan","nama":"Buketan","kategori":"flora","makna":"Keindahan dan akulturasi Eropa-Jawa"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Bungong_Jeumpa","nama":"Bungong Jeumpa Aceh","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Aceh dengan motif bunga jeumpa (cempaka), bunga yang identik dengan Aceh.","maknaFilosofis":"Melambangkan keharuman, keindahan, dan kasih sayang.","sejarah":"Mengangkat bunga jeumpa yang dikenal dalam budaya dan lagu daerah Aceh.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Banda_Aceh","nama":"Kota Banda Aceh","provinsi":"Aceh","pulau":"Sumatera"},"motif":{"id":"Motif_Bungong_Jeumpa","nama":"Bungong Jeumpa","kategori":"flora","makna":"Keharuman dan kasih sayang"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Cendrawasih","nama":"Batik Cendrawasih Papua","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Papua dengan motif burung cendrawasih.","maknaFilosofis":"Melambangkan keindahan, keanggunan, dan kekayaan fauna tanah Papua.","sejarah":"Batik kontemporer Papua yang mengangkat fauna khas.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam, cerah","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Jayapura","nama":"Kabupaten Jayapura","provinsi":"Papua","pulau":"Papua"},"motif":{"id":"Motif_Burung_Cendrawasih","nama":"Cendrawasih","kategori":"fauna","makna":"Keindahan fauna Papua"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Ceplok","nama":"Ceplok Yogyakarta","tipe":"tulis_cap","jenisLabel":"Batik Kombinasi (Tulis-Cap)","deskripsi":"Kelompok motif geometris berulang berupa bujur sangkar, lingkaran, bintang, atau belah ketupat.","maknaFilosofis":"Dimaknai sebagai keteraturan dan keseimbangan.","sejarah":"Ceplok adalah salah satu kelompok motif geometris tertua dalam batik klasik Jawa.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Yogyakarta","nama":"Kota Yogyakarta","provinsi":"Daerah Istimewa Yogyakarta","pulau":"Jawa"},"motif":{"id":"Motif_Ceplok","nama":"Ceplok","kategori":"geometris","makna":"Keteraturan dan keseimbangan"},"teknik":{"id":"Teknik_Kombinasi","nama":"Batik Kombinasi (Tulis dan Cap)","alat":"Canting dan cap tembaga"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Corak_Insang","nama":"Corak Insang Pontianak","tipe":"tulis_cap","jenisLabel":"Batik Kombinasi (Tulis-Cap)","deskripsi":"Batik Melayu Pontianak dengan motif insang ikan.","maknaFilosofis":"Mencerminkan kehidupan masyarakat Melayu yang dekat dengan sungai.","sejarah":"Mengangkat corak insang yang dikenal dalam budaya Melayu Pontianak.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Pontianak","nama":"Kota Pontianak","provinsi":"Kalimantan Barat","pulau":"Kalimantan"},"motif":{"id":"Motif_Corak_Insang","nama":"Corak Insang","kategori":"fauna","makna":"Kehidupan masyarakat sungai"},"teknik":{"id":"Teknik_Kombinasi","nama":"Batik Kombinasi (Tulis dan Cap)","alat":"Canting dan cap tembaga"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Encim","nama":"Encim Pekalongan","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik pesisir Peranakan Tionghoa dengan motif flora dan fauna halus berwarna cerah.","maknaFilosofis":"Mencerminkan budaya Peranakan Tionghoa dan harapan akan keberuntungan.","sejarah":"Dikembangkan komunitas Peranakan Tionghoa dan dikenakan oleh perempuan Peranakan (encim).","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Perempuan Peranakan dan masyarakat umum","warnaDominan":"Cerah, banyak warna","bahanKain":"Katun (mori)","jenisKain":"Kain panjang dan sarung","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Pekalongan","nama":"Kota Pekalongan","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Encim","nama":"Encim","kategori":"flora","makna":"Keberuntungan dan keindahan ala Peranakan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Gajah_Oling","nama":"Gajah Oling Banyuwangi","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif khas Banyuwangi yang menyerupai belalai gajah dengan lengkung oling.","maknaFilosofis":"Motif ikonik masyarakat Using Banyuwangi.","sejarah":"Batik khas suku Using Banyuwangi dan dianggap sebagai ikon batik Banyuwangi.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Banyuwangi","nama":"Kabupaten Banyuwangi","provinsi":"Jawa Timur","pulau":"Jawa"},"motif":{"id":"Motif_Gajah_Oling","nama":"Gajah Oling","kategori":"fauna","makna":"Identitas budaya Using"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Gedog_Tuban","nama":"Gedog Tuban","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik tulis di atas kain tenun gedog, tenun tangan dari kapas, khas Kecamatan Kerek.","maknaFilosofis":"Mencerminkan kearifan lokal perajin Kerek yang menenun dan membatik secara turun-temurun.","sejarah":"Berkembang di Kecamatan Kerek, Tuban, dengan kain tenun gedog sebagai medianya.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Biru dan cokelat","bahanKain":"Katun tenun gedog","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Tuban","nama":"Kabupaten Tuban","provinsi":"Jawa Timur","pulau":"Jawa"},"motif":{"id":"Motif_Kembang_Waluh","nama":"Kembang Waluh","kategori":"flora","makna":"Kesuburan dan hasil bumi"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Gentongan","nama":"Gentongan Madura","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Madura yang direndam lama dalam gentong tanah liat.","maknaFilosofis":"Karakter keras dan tegas masyarakat Madura.","sejarah":"Dikenal dari Tanahmerah, Bangkalan, Madura.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Merah dan biru tua","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Bangkalan","nama":"Kabupaten Bangkalan","provinsi":"Jawa Timur","pulau":"Madura"},"motif":{"id":"Motif_Abstrak_Warna_Warni","nama":"Abstrak Warna Warni","kategori":"alam","makna":""},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Mengkudu","tipe":"alami","nama":"Mengkudu","sumber":"Akar/kulit akar mengkudu (Morinda citrifolia)","warna":"Merah"},{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"}]},{"id":"Batik_Grompol","nama":"Grompol Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif geometris berupa kelompok bentuk kecil yang tersusun rapat dan berkumpul.","maknaFilosofis":"Grompol berarti berkumpul; harapan agar rezeki dan sanak keluarga senantiasa berkumpul.","sejarah":"Batik klasik Jawa yang lazim dikenakan pada acara lamaran dan pernikahan.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Keluarga mempelai","warnaDominan":"Cokelat soga dan biru nila","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Grompol","nama":"Grompol","kategori":"geometris","makna":"Berkumpulnya rezeki dan keluarga"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Lamaran","tipe":"lamaran","nama":"Lamaran (peningsetan)"},{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Jahe_Srimpang","nama":"Jahe Srimpang Banyumas","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif rimpang jahe khas batik Banyumasan dengan latar sogan.","maknaFilosofis":"Menggambarkan jahe yang bermanfaat sebagai penghangat dan obat, cerminan kearifan lokal agraris.","sejarah":"Motif khas Banyumas yang mengangkat tanaman jahe.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Banyumas","nama":"Kabupaten Banyumas","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Jahe_Srimpang","nama":"Jahe Srimpang","kategori":"flora","makna":"Kearifan lokal agraris"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Jawa_Hokokai","nama":"Jawa Hokokai Pekalongan","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif bunga dan kupu-kupu yang padat dan berwarna cerah dengan nuansa Jepang.","maknaFilosofis":"Mencerminkan perpaduan estetika Jepang dan Jawa pada masa pendudukan.","sejarah":"Berkembang pada masa pendudukan Jepang (1942-1945), dinamai dari organisasi Jawa Hokokai.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam, cerah","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Pekalongan","nama":"Kota Pekalongan","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Jawa_Hokokai","nama":"Jawa Hokokai","kategori":"flora","makna":"Perpaduan estetika Jepang-Jawa"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Jlamprang","nama":"Jlamprang Pekalongan","tipe":"tulis_cap","jenisLabel":"Batik Kombinasi (Tulis-Cap)","deskripsi":"Motif geometris berbentuk bintang atau bunga bersusun yang dipengaruhi kain patola India.","maknaFilosofis":"Mencerminkan akulturasi budaya lokal dengan India.","sejarah":"Berkembang di daerah Krapyak, Pekalongan, dengan pengaruh kain patola yang dibawa pedagang.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam, cerah","bahanKain":"Katun","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Pekalongan","nama":"Kota Pekalongan","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Jlamprang","nama":"Jlamprang","kategori":"geometris","makna":"Akulturasi dengan budaya India"},"teknik":{"id":"Teknik_Kombinasi","nama":"Batik Kombinasi (Tulis dan Cap)","alat":"Canting dan cap tembaga"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Kawung","nama":"Kawung Picis Cap","tipe":"batik_cap","jenisLabel":"Batik Cap","deskripsi":"Motif geometris empat bulatan lonjong yang tersusun simetris.","maknaFilosofis":"Melambangkan kesucian dan umur panjang.","sejarah":"Motif klasik Jawa yang dahulu dibatasi pemakaiannya di lingkungan keraton.","aturanPemakaian":"Kini boleh dipakai umum","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Buah_Aren","nama":"Kawung","kategori":"geometris","makna":"Kesucian dan umur panjang"},"teknik":{"id":"Teknik_Cap","nama":"Batik Cap","alat":"Cap tembaga"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Lasem","nama":"Batik Tiga Negeri Lasem","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik pesisir Lasem dengan warna merah khas dan perpaduan tiga warna.","maknaFilosofis":"Simbol perpaduan budaya Jawa dan Tionghoa.","sejarah":"Berkembang di Lasem dengan pengaruh Tionghoa dan Jawa.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Merah, biru, dan cokelat","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Rembang","nama":"Kabupaten Rembang","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Burung_Hong","nama":"Burung Hong","kategori":"fauna","makna":"Kebahagiaan dan keabadian dalam budaya Tionghoa"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Mengkudu","tipe":"alami","nama":"Mengkudu","sumber":"Akar/kulit akar mengkudu (Morinda citrifolia)","warna":"Merah"},{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Latohan","nama":"Latohan Lasem","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif latoh (rumput laut) khas Lasem, umumnya dengan warna merah khas Lasem.","maknaFilosofis":"Menggambarkan kekayaan hasil laut daerah pesisir Lasem.","sejarah":"Motif batik pesisir Lasem yang diangkat dari tanaman laut latoh.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Merah dan biru","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Rembang","nama":"Kabupaten Rembang","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Latohan","nama":"Latohan","kategori":"alam","makna":"Kekayaan hasil laut pesisir"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Mengkudu","tipe":"alami","nama":"Mengkudu","sumber":"Akar/kulit akar mengkudu (Morinda citrifolia)","warna":"Merah"},{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"}]},{"id":"Batik_Megamendung","nama":"Megamendung Tulis Cirebon","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Cirebon bermotif awan bergradasi, identik dengan warna biru dan merah.","maknaFilosofis":"Simbol awan pemberi hujan dan kesuburan.","sejarah":"Berkembang di Cirebon dengan pengaruh budaya Tiongkok.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Biru dan merah","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Cirebon","nama":"Kabupaten Cirebon","provinsi":"Jawa Barat","pulau":"Jawa"},"motif":{"id":"Motif_Awan","nama":"Mega Mendung","kategori":"alam","makna":"Awan pembawa hujan; simbol kesabaran dan pengayoman"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"}]},{"id":"Batik_Merak_Ngibing","nama":"Merak Ngibing Garutan","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Garutan dengan motif merak, umumnya berwarna lembut seperti krem dan cokelat muda.","maknaFilosofis":"Merak menari melambangkan keindahan.","sejarah":"Batik Garutan dikenal dengan warna lembut dan motif khas Priangan.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Krem dan cokelat muda","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Garut","nama":"Kabupaten Garut","provinsi":"Jawa Barat","pulau":"Jawa"},"motif":{"id":"Motif_Merak_Ngibing","nama":"Merak Ngibing","kategori":"fauna","makna":"Keindahan dan keanggunan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Nitik","nama":"Nitik Yogyakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Pola geometris yang tersusun dari titik-titik kecil menyerupai anyaman tenun.","maknaFilosofis":"Tidak memiliki makna filosofis baku; dikenal karena kerapian pola titik yang meniru kain tenun.","sejarah":"Berkembang di Yogyakarta (antara lain Kotagede) dengan pola yang terinspirasi kain tenun.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga dan biru nila","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Yogyakarta","nama":"Kota Yogyakarta","provinsi":"Daerah Istimewa Yogyakarta","pulau":"Jawa"},"motif":{"id":"Motif_Nitik","nama":"Nitik","kategori":"geometris","makna":"Kerapian dan ketelitian"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Paksi_Naga_Liman","nama":"Paksi Naga Liman Cirebon","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif makhluk gabungan burung, naga, dan gajah, terinspirasi kereta Paksi Naga Liman Keraton Kanoman.","maknaFilosofis":"Perpaduan unsur budaya: paksi (burung, unsur Islam), naga (Tiongkok), liman/gajah (Hindu-India).","sejarah":"Terinspirasi kereta Paksi Naga Liman milik Keraton Kanoman Cirebon.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Lingkungan keraton Cirebon (secara tradisional)","warnaDominan":"Biru dan cokelat","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Cirebon","nama":"Kota Cirebon","provinsi":"Jawa Barat","pulau":"Jawa"},"motif":{"id":"Motif_Paksi_Naga_Liman","nama":"Paksi Naga Liman","kategori":"fauna","makna":"Akulturasi budaya Islam, Tionghoa, dan Hindu"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Keraton","tipe":"kerajaan","nama":"Upacara dan acara lingkungan keraton"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Parang_Rusak","nama":"Parang Rusak Barong","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Salah satu motif parang tertua batik keraton Jawa dengan garis diagonal berkait.","maknaFilosofis":"Simbol semangat pantang menyerah seperti ombak laut.","sejarah":"Motif klasik Keraton Mataram yang diwariskan ke Yogyakarta dan Surakarta.","aturanPemakaian":"Secara tradisional termasuk motif larangan di lingkungan keraton","golonganPemakai":"Bangsawan keraton (secara tradisional)","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Yogyakarta","nama":"Kota Yogyakarta","provinsi":"Daerah Istimewa Yogyakarta","pulau":"Jawa"},"motif":{"id":"Motif_Geometris_Diagonal","nama":"Parang Rusak","kategori":"geometris","makna":"Semangat pantang menyerah"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Keraton","tipe":"kerajaan","nama":"Upacara dan acara lingkungan keraton"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Parijoto","nama":"Parijoto Kudus","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif buah parijoto (Medinilla speciosa) dari lereng Gunung Muria.","maknaFilosofis":"Dikaitkan dengan kepercayaan setempat tentang buah parijoto sebagai simbol kesuburan.","sejarah":"Mengangkat flora khas kawasan Muria di Kudus.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Kudus","nama":"Kabupaten Kudus","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Parijoto","nama":"Parijoto","kategori":"flora","makna":"Kesuburan menurut kepercayaan setempat"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Pinawetengan","nama":"Pinawetengan Minahasa","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Minahasa dengan motif ukiran Watu Pinawetengan.","maknaFilosofis":"Mengenang Watu Pinawetengan, tempat musyawarah leluhur Minahasa.","sejarah":"Terinspirasi batu bersejarah Watu Pinawetengan di Minahasa.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Minahasa","nama":"Kabupaten Minahasa","provinsi":"Sulawesi Utara","pulau":"Sulawesi"},"motif":{"id":"Motif_Watu_Pinawetengan","nama":"Watu Pinawetengan","kategori":"alam","makna":"Musyawarah dan persatuan Minahasa"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Pring_Sedapur","nama":"Pring Sedapur Magetan","tipe":"batik_cap","jenisLabel":"Batik Cap","deskripsi":"Batik Magetan dengan motif rumpun bambu.","maknaFilosofis":"Kerukunan dan ketentraman hidup bersama seperti rumpun bambu.","sejarah":"Batik khas Magetan, Jawa Timur.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Magetan","nama":"Kabupaten Magetan","provinsi":"Jawa Timur","pulau":"Jawa"},"motif":{"id":"Motif_Rumpun_Bambu","nama":"Pring Sedapur","kategori":"flora","makna":"Kerukunan seperti rumpun bambu"},"teknik":{"id":"Teknik_Cap","nama":"Batik Cap","alat":"Cap tembaga"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sekar_Jagad","nama":"Sekar Jagad Yogyakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Bidang-bidang tak beraturan seperti peta berisi aneka isen.","maknaFilosofis":"Keindahan dan keanekaragaman dunia yang mempesona.","sejarah":"Batik klasik Jawa yang berkembang di Yogyakarta dan Surakarta.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga dan warna lain","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Yogyakarta","nama":"Kota Yogyakarta","provinsi":"Daerah Istimewa Yogyakarta","pulau":"Jawa"},"motif":{"id":"Motif_Peta_Pulau","nama":"Sekar Jagad","kategori":"geometris","makna":"Keindahan dan keanekaragaman dunia"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Semen_Rama","nama":"Semen Rama Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif semen (tumbuhan yang bersemi) dengan unsur gunung dan satwa pada latar sogan.","maknaFilosofis":"Harapan agar pemakainya meneladani kepemimpinan yang bijak sesuai ajaran Hastabrata dalam kisah Ramayana.","sejarah":"Batik klasik Jawa dengan motif semen; &quot;semen&quot; berasal dari kata semi (tumbuh).","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Pejabat dan keluarga keraton (secara tradisional)","warnaDominan":"Cokelat soga dan biru nila","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Semen_Rama","nama":"Semen Rama","kategori":"flora","makna":"Kepemimpinan yang bijak dan penuh kesuburan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Keraton","tipe":"kerajaan","nama":"Upacara dan acara lingkungan keraton"},{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sido_Asih","nama":"Sido Asih Klasik","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik keluarga motif Sido untuk pernikahan.","maknaFilosofis":"Harapan agar kehidupan pernikahan dipenuhi kasih sayang.","sejarah":"Termasuk keluarga motif Sido dalam batik klasik Surakarta dan Yogyakarta.","aturanPemakaian":"Lazim untuk upacara pernikahan","golonganPemakai":"Pengantin dan keluarga","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Bangun_Berkait","nama":"Sido Asih","kategori":"geometris","makna":"Harapan kasih sayang dalam pernikahan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sido_Drajat","nama":"Sido Drajat Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik keluarga motif &quot;Sido&quot; dengan latar sogan.","maknaFilosofis":"Harapan agar pemakainya meraih derajat dan kedudukan terhormat.","sejarah":"Termasuk keluarga motif &quot;Sido&quot; dalam tradisi batik klasik Surakarta.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Pengantin dan keluarga pengantin","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Sido_Drajat","nama":"Sido Drajat","kategori":"geometris","makna":"Derajat dan kedudukan terhormat"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sido_Luhur","nama":"Sido Luhur Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Kain bermotif geometris keluarga motif &quot;Sido&quot; dengan latar sogan; lazim dipakai pada upacara pernikahan Jawa.","maknaFilosofis":"Harapan agar pemakainya menjadi orang berbudi luhur dan dihormati.","sejarah":"Termasuk keluarga motif &quot;Sido&quot; (jadi/terwujud) dalam tradisi batik klasik Surakarta dan Yogyakarta.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Pengantin dan keluarga pengantin","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Sido_Luhur","nama":"Sido Luhur","kategori":"geometris","makna":"Keluhuran budi"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Mitoni","tipe":"kelahiran","nama":"Mitoni (tingkeban / tujuh bulanan kehamilan)"},{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sido_Mukti","nama":"Batik Sido Mukti Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik Sido untuk pengantin yang mengharapkan kemukten.","maknaFilosofis":"Harapan agar pengantin mencapai kebahagiaan, kemakmuran, dan ketentraman hidup (mukti).","sejarah":"Termasuk keluarga motif Sido, Surakarta.","aturanPemakaian":"Lazim untuk upacara pernikahan","golonganPemakai":"Pengantin dan keluarga","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Geometris_Klasik","nama":"Geometris Klasik","kategori":"geometris","makna":""},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Sido_Mulyo","nama":"Sido Mulyo Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik keluarga motif &quot;Sido&quot; untuk upacara pernikahan.","maknaFilosofis":"Harapan agar kehidupan pengantin mulia dan berkecukupan.","sejarah":"Termasuk keluarga motif &quot;Sido&quot; dalam tradisi batik klasik Surakarta.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Pengantin dan keluarga pengantin","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Sido_Mulyo","nama":"Sido Mulyo","kategori":"geometris","makna":"Kemuliaan dan kecukupan hidup"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Simbut","nama":"Batik Simbut Banten","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Banten dengan motif daun talas yang terinspirasi budaya Baduy.","maknaFilosofis":"Merepresentasikan kesederhanaan masyarakat Baduy yang menyatu dengan alam melalui bentuk daun talas.","sejarah":"Batik Banten yang berkembang di wilayah Lebak.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Biru tua","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Lebak","nama":"Kabupaten Lebak","provinsi":"Banten","pulau":"Jawa"},"motif":{"id":"Motif_Daun_Talas","nama":"Daun Talas","kategori":"flora","makna":"Kesederhanaan masyarakat Baduy yang menyatu dengan alam"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"}]},{"id":"Batik_Singa_Barong","nama":"Singa Barong Cirebon","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik keraton Cirebon dengan motif singa berbelalai dan bersayap.","maknaFilosofis":"Lambang kekuatan dan kebesaran keraton, terinspirasi kereta Singa Barong Keraton Kasepuhan.","sejarah":"Terinspirasi kereta kencana Singa Barong milik Keraton Kasepuhan Cirebon.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Lingkungan keraton Cirebon (secara tradisional)","warnaDominan":"Biru dan cokelat","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Cirebon","nama":"Kota Cirebon","provinsi":"Jawa Barat","pulau":"Jawa"},"motif":{"id":"Motif_Singa_Barong","nama":"Singa Barong","kategori":"fauna","makna":"Kekuatan dan kebesaran keraton"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Keraton","tipe":"kerajaan","nama":"Upacara dan acara lingkungan keraton"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Slobog","nama":"Slobog Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik Jawa bernuansa gelap yang dikenakan pada upacara kematian.","maknaFilosofis":"Berasal dari kata lobok (longgar); harapan agar arwah dimudahkan jalannya menuju alam keabadian.","sejarah":"Dikenal dalam tradisi Jawa sebagai kain untuk upacara kematian atau melayat.","aturanPemakaian":"Dikenakan pada upacara kematian atau melayat; tidak lazim dipakai pada acara pesta.","golonganPemakai":"Pelayat dan keluarga yang berduka","warnaDominan":"Cokelat soga dan biru tua","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Slobog","nama":"Slobog","kategori":"geometris","makna":"Kelancaran perjalanan arwah"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Kematian","tipe":"kematian","nama":"Upacara kematian / melayat"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Surya_Majapahit","nama":"Surya Majapahit Mojokerto","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif matahari bersinar delapan, lambang Majapahit, dipadukan hiasan klasik.","maknaFilosofis":"Mengenang kejayaan Kerajaan Majapahit.","sejarah":"Mengangkat lambang Surya Majapahit dari peninggalan Kerajaan Majapahit di wilayah Mojokerto.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Beragam","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Mojokerto","nama":"Kabupaten Mojokerto","provinsi":"Jawa Timur","pulau":"Jawa"},"motif":{"id":"Motif_Surya_Majapahit","nama":"Surya Majapahit","kategori":"alam","makna":"Kejayaan Majapahit"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[]},{"id":"Batik_Tambal","nama":"Batik Tambal Yogyakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik berbentuk tambalan kain dari berbagai motif.","maknaFilosofis":"Simbol memperbaiki hal-hal yang rusak dalam perjalanan hidup manusia.","sejarah":"Batik klasik Jawa yang dahulu dikaitkan dengan kepercayaan menolak sakit.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Yogyakarta","nama":"Kota Yogyakarta","provinsi":"Daerah Istimewa Yogyakarta","pulau":"Jawa"},"motif":{"id":"Motif_Tambalan_Kain","nama":"Tambal","kategori":"geometris","makna":"Memperbaiki hal-hal yang rusak dalam hidup"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Tanah_Liek","nama":"Tanah Liek Minangkabau","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik Minangkabau yang diwarnai dengan tanah liat (tanah liek) bermotif flora khas Minang.","maknaFilosofis":"Mencerminkan kedekatan masyarakat Minangkabau dengan alam.","sejarah":"Berkembang di Sumatera Barat dengan pewarna dari tanah liat.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat kemerahan","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Padang","nama":"Kota Padang","provinsi":"Sumatera Barat","pulau":"Sumatera"},"motif":{"id":"Motif_Kaluak_Paku","nama":"Kaluak Paku","kategori":"flora","makna":"Pelajaran hidup dari alam menurut adat Minang"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Tanah_Liat","tipe":"alami","nama":"Tanah liat (tanah liek)","sumber":"Tanah liat dari Sumatera Barat","warna":"Cokelat kemerahan"}]},{"id":"Batik_Truntum","nama":"Truntum Sri Kuncoro","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif bunga kecil atau bintang bertebaran pada latar gelap.","maknaFilosofis":"Cinta yang tumbuh kembali dan senantiasa bersemi.","sejarah":"Menurut tradisi diciptakan permaisuri Pakubuwana III dari Keraton Surakarta.","aturanPemakaian":"Lazim dikenakan orang tua pengantin","golonganPemakai":"Orang tua pengantin","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Bintang_Tebar","nama":"Truntum","kategori":"alam","makna":"Cinta yang tumbuh kembali"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Tujuh_Rupa","nama":"Tujuh Rupa Pekalongan","tipe":"tulis_cap","jenisLabel":"Batik Kombinasi (Tulis-Cap)","deskripsi":"Batik Pekalongan berwarna-warni dengan perpaduan banyak warna.","maknaFilosofis":"Akulturasi budaya lokal dengan budaya Tiongkok.","sejarah":"Berkembang di Pekalongan sebagai batik pesisir.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Tujuh warna (beragam)","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kab_Pekalongan","nama":"Kabupaten Pekalongan","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Flora_Fauna_Khas","nama":"Flora Fauna Khas","kategori":"flora","makna":""},"teknik":{"id":"Teknik_Kombinasi","nama":"Batik Kombinasi (Tulis dan Cap)","alat":"Canting dan cap tembaga"},"acara":[{"id":"Cendera_Mata","tipe":"souvenir","nama":"Cendera mata (souvenir)"}],"malam":[{"id":"Malam_Cap","nama":"Malam cap","fungsi":"Dipakai pada cap tembaga untuk mencetak pola berulang","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Naphtol","tipe":"sintetis","nama":"Naphtol","sumber":"Pewarna sintetis naphtol","warna":"Beragam, cerah dan pekat"},{"id":"Pewarna_Remazol","tipe":"sintetis","nama":"Remazol (pewarna reaktif)","sumber":"Pewarna sintetis reaktif","warna":"Beragam, cerah"}]},{"id":"Batik_Udan_Liris","nama":"Batik Udan Liris","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif seperti hujan gerimis dalam batik klasik Jawa.","maknaFilosofis":"Harapan akan datangnya rezeki dan kesejahteraan yang terus mengalir seperti hujan gerimis.","sejarah":"Batik klasik Jawa tengahan.","aturanPemakaian":"Tidak ada larangan khusus","golonganPemakai":"Masyarakat umum","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Hujan_Gerimis","nama":"Udan Liris","kategori":"alam","makna":"Rezeki yang mengalir seperti hujan gerimis"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Wadasan","nama":"Wadasan Cirebon","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Motif batuan karang (wadas) khas Cirebon yang sering dipadukan dengan awan Mega Mendung.","maknaFilosofis":"Melambangkan keteguhan seperti batu karang.","sejarah":"Motif pesisir Cirebon, wadas berarti batu.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Masyarakat umum","warnaDominan":"Biru dan cokelat","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Sedang","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Cirebon","nama":"Kota Cirebon","provinsi":"Jawa Barat","pulau":"Jawa"},"motif":{"id":"Motif_Wadasan","nama":"Wadasan","kategori":"alam","makna":"Keteguhan dan kekuatan"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Busana_Formal","tipe":"busana_formal","nama":"Busana formal / resmi"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Nila","tipe":"alami","nama":"Indigo (nila/tarum)","sumber":"Daun tarum (Indigofera tinctoria)","warna":"Biru"},{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]},{"id":"Batik_Wahyu_Tumurun","nama":"Wahyu Tumurun Surakarta","tipe":"batik_tulis","jenisLabel":"Batik Tulis","deskripsi":"Batik klasik Jawa yang dikenakan antara lain pada upacara pernikahan dan mitoni.","maknaFilosofis":"Harapan turunnya anugerah, petunjuk, dan berkah Tuhan bagi pemakainya.","sejarah":"Batik klasik tradisi Jawa; wahyu berarti anugerah, tumurun berarti turun.","aturanPemakaian":"Tidak ada larangan khusus; disesuaikan dengan acara","golonganPemakai":"Pengantin, calon ibu, dan keluarga","warnaDominan":"Cokelat soga","bahanKain":"Katun (mori)","jenisKain":"Kain panjang","tingkatKerumitan":"Tinggi","statusWarisanBudaya":"Bagian dari Batik Indonesia, Warisan Budaya Takbenda UNESCO (ditetapkan 2 Oktober 2009)","sumberReferensi":"https://ich.unesco.org/en/RL/indonesian-batik-00170","gambarBatik":"","wilayah":{"id":"Kota_Surakarta","nama":"Kota Surakarta (Solo)","provinsi":"Jawa Tengah","pulau":"Jawa"},"motif":{"id":"Motif_Wahyu_Tumurun","nama":"Wahyu Tumurun","kategori":"flora","makna":"Turunnya anugerah dan petunjuk Ilahi"},"teknik":{"id":"Teknik_Tulis","nama":"Batik Tulis","alat":"Canting"},"acara":[{"id":"Acara_Mitoni","tipe":"kelahiran","nama":"Mitoni (tingkeban / tujuh bulanan kehamilan)"},{"id":"Acara_Pernikahan_Adat","tipe":"pernikahan","nama":"Pernikahan adat Jawa"}],"malam":[{"id":"Malam_Klowong","nama":"Malam klowong","fungsi":"Membuat kerangka/garis tepi pola (klowongan) dengan canting","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"},{"id":"Malam_Tembokan","nama":"Malam tembokan","fungsi":"Menutup bidang latar atau bidang yang tidak boleh terkena warna (nembok)","komposisi":"Campuran gondorukem, damar mata kucing, parafin, microwax, dan lemak"}],"pewarnaan":[{"id":"Pewarna_Soga","tipe":"alami","nama":"Soga (sogan)","sumber":"Kulit kayu soga (tingi, jambal) dan tegeran","warna":"Cokelat"}]}],"taxonomy":{"name":"owl:Thing","children":[{"name":"Kain_Batik","label":"Kain Batik Nusantara","desc":"Seluruh kain batik bernilai seni budaya nusantara","children":[{"name":"batik_tulis","label":"Batik Tulis","desc":"Dibuat manual dengan canting tulis tangan secara tradisional","count":42},{"name":"batik_cap","label":"Batik Cap","desc":"Dibuat menggunakan stempel canting cap tembaga","count":2},{"name":"batik_cetak","label":"Batik Cetak / Sablon","desc":"Dibuat dengan teknik cetak/printing/sablon modern","count":0},{"name":"batik_kombinasi","label":"Batik Kombinasi","desc":"Kombinasi antara dua teknik pembuatan batik","children":[{"name":"tulis_cap","label":"Tulis & Cap","desc":"Penggabungan garis tulis tangan dengan ornamen cap","count":4},{"name":"cap_cetak","label":"Cap & Cetak","desc":"Penggabungan teknik cap dengan latar cetak","count":0}],"count":4}],"count":48},{"name":"motif","label":"Ragam Motif Batik","desc":"Pola ornamen hias yang memiliki makna simbolik dan filosofis","children":[{"name":"flora","label":"Motif Flora (Tumbuhan)","desc":"Pola ornamen bunga, sulur, dedaunan, dan tanaman nusantara","count":16},{"name":"fauna","label":"Motif Fauna (Hewan)","desc":"Pola ornamen satwa seperti burung, merak, angsa, singa, kupu-kupu","count":9},{"name":"geometris","label":"Motif Geometris","desc":"Pola berulang yang simetris, bergaris miring, ceplok, kawung, parang","count":15},{"name":"alam","label":"Motif Alam","desc":"Pola elemen alam seperti awan megamendung, ombak laut, gunung, batu","count":8}],"count":48},{"name":"pewarnaan","label":"Teknik & Bahan Pewarnaan","desc":"Klasifikasi zat warna yang digunakan pada selembar kain batik","children":[{"name":"alami","label":"Pewarna Alami (Natural)","desc":"Zat pewarna ramah lingkungan dari tumbuhan (indigo/nila, soga, secang, mengkudu, tanah liek)","count":5},{"name":"sintetis","label":"Pewarna Sintetis (Kimia)","desc":"Zat pewarna modern cepat meresap (napthol, remazol reaktif, indigosol)","count":3}],"count":8},{"name":"kegunaan","label":"Kegunaan & Konteks Pemakaian","desc":"Konteks sosial budaya dan upacara adat di mana kain batik dikenakan","children":[{"name":"adat","label":"Upacara Adat Tradisi","desc":"Prosesi ritual adat sakral masyarakat nusantara","children":[{"name":"pernikahan","label":"Pernikahan Adat","desc":"Dipakai saat prosesi siraman, midodareni, akad/ijab, dan resepsi (Sido Asih, Truntum, Sido Luhur, Grompol)","count":1},{"name":"kelahiran","label":"Kelahiran / Mitoni","desc":"Dipakai saat upacara tingkeban / tujuh bulanan kehamilan (Pamiluto, Sido Asih)","count":1},{"name":"kematian","label":"Upacara Kematian / Lelayu","desc":"Dikenakan saat melayat atau sebagai kain penutup jenazah (Slobok)","count":1},{"name":"kerajaan","label":"Lingkungan Keraton","desc":"Busana resmi kebesaran raja, sultan, dan abdi dalem (Parang Rusak Barong, Huk)","count":1},{"name":"lamaran","label":"Lamaran / Peningsetan","desc":"Dikenakan saat pihak mempelai pria meminang mempelai wanita (Sido Mukti, Satrio Manah)","count":1}],"count":5},{"name":"busana_formal","label":"Busana Formal & Kantor","desc":"Dikenakan untuk kegiatan kantor, dinas kenegaraan, dan pesta resmi","count":1},{"name":"souvenir","label":"Cendera Mata & Oleh-Oleh","desc":"Diberikan sebagai buah tangan cinderamata khas daerah nusantara","count":1}],"count":7},{"name":"asal_daerah_nusantara","label":"Asal Wilayah Geografis","desc":"Lokasi asal geografis pembuatan dan tradisi batik di kepulauan Nusantara","children":[{"name":"provinsi","label":"Provinsi Asal","desc":"15 Provinsi sentra batik (DI Yogyakarta, Jawa Tengah, Jawa Barat, Jawa Timur, Jambi, Bengkulu, Papua, dll.)","count":15},{"name":"kabupaten","label":"Kabupaten / Kota Sentra","desc":"27 Kota/Kabupaten sentra batik (Pekalongan, Solo, Cirebon, Lasem, Banyumas, Asmat, dll.)","count":27}],"count":42},{"name":"malam","label":"Bahan Malam (Lilin Batik)","desc":"Resin perintang warna alami saat proses perintangan","children":[{"name":"Malam_Klowong","label":"Malam Klowong","desc":"Malam encer bersuhu pas untuk membuat garis pola (klowongan) pertama","count":1},{"name":"Malam_Tembokan","label":"Malam Tembokan","desc":"Malam kental tahan larutan asam untuk menutupi bidang luas (nembok)","count":1},{"name":"Malam_Cap","label":"Malam Cap","desc":"Malam dengan titik leleh khusus untuk stempel canting cap tembaga","count":1}],"count":3},{"name":"teknik_pembuatan","label":"Teknik Pembuatan Batik","desc":"Metode proses kerja penciptaan karya batik nusantara","children":[{"name":"Teknik_Tulis","label":"Teknik Tulis Canting","desc":"Melukis malam panas setetes demi setetes memakai canting cucuk","count":1},{"name":"Teknik_Cap","label":"Teknik Canting Cap","desc":"Mencap lilin malam panas memakai plat cetakan tembaga","count":1},{"name":"Teknik_Cetak","label":"Teknik Cetak Sablon/Printing","desc":"Teknik sablon kimia modern tanpa perintangan malam lilin","count":1},{"name":"Teknik_Kombinasi","label":"Teknik Kombinasi Tulis & Cap","desc":"Memadukan stempel cap dengan detail ornamen canting tulis halus","count":1}],"count":4}],"count":null},"thesaurus":[{"concept":"pernikahan","canonicalLabel":"Pernikahan Adat","ontologyClass":"pernikahan","property":"dipakaiPadaAcara","targetUri":"Acara_Pernikahan_Adat","synonyms":["manten","nikah","pengantin","ijab","resepsi","perkawinan","kawin","kondangan manten","akad nikah","siraman","midodareni","temu manten"],"reasoning":"Kata kunci merujuk pada upacara pernikahan adat (pernikahan ⊆ adat ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Acara_Pernikahan_Adat."},{"concept":"kematian","canonicalLabel":"Upacara Kematian / Duka","ontologyClass":"kematian","property":"dipakaiPadaAcara","targetUri":"Acara_Kematian","synonyms":["lelayu","duka","melayat","kematian","kubur","layat","belasungkawa","meninggal","jenazah","slobok"],"reasoning":"Kata kunci merujuk pada upacara lelayu / kematian (kematian ⊆ adat ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Acara_Kematian (misal Batik Slobok)."},{"concept":"kelahiran","canonicalLabel":"Upacara Kelahiran / Mitoni","ontologyClass":"kelahiran","property":"dipakaiPadaAcara","targetUri":"Acara_Mitoni","synonyms":["mitoni","tingkeban","tujuh bulanan","kehamilan","kelahiran","bayi","lahiran","babaran"],"reasoning":"Kata kunci merujuk pada prosesi adat kehamilan/kelahiran (kelahiran ⊆ adat ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Acara_Mitoni."},{"concept":"kerajaan","canonicalLabel":"Lingkungan Keraton / Kerajaan","ontologyClass":"kerajaan","property":"dipakaiPadaAcara","targetUri":"Acara_Keraton","synonyms":["keraton","istana","raja","sultan","bangsawan","abdi dalem","kerajaan","awisan","larangan","parang rusak","huk","keratonan"],"reasoning":"Kata kunci merujuk pada tradisi adat keraton (kerajaan ⊆ adat ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Acara_Keraton atau motif awisan raja."},{"concept":"formal","canonicalLabel":"Busana Formal & Resmi","ontologyClass":"busana_formal","property":"dipakaiPadaAcara","targetUri":"Busana_Formal","synonyms":["resmi","kantor","dinas","formal","pesta","kerja","rapat","seragam","sidang"],"reasoning":"Kata kunci merujuk pada kegunaan busana dinas/resmi (busana_formal ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Busana_Formal."},{"concept":"souvenir","canonicalLabel":"Cendera Mata / Souvenir","ontologyClass":"souvenir","property":"dipakaiPadaAcara","targetUri":"Cendera_Mata","synonyms":["souvenir","suvenir","oleh-oleh","buah tangan","cenderamata","hadiah","kenang-kenangan","kado"],"reasoning":"Kata kunci merujuk pada fungsi cinderamata daerah (souvenir ⊆ kegunaan). Mencocokkan batik dengan properti dipakaiPadaAcara = Cendera_Mata."},{"concept":"fauna","canonicalLabel":"Motif Fauna (Hewan / Satwa)","ontologyClass":"fauna","property":"memilikiMotif","targetUri":"fauna","synonyms":["fauna","hewan","binatang","satwa","burung","merak","angsa","singa","kupu-kupu","ular","naga","ikan","cendrawasih","angso duo","garuda"],"reasoning":"Kata kunci merujuk pada kategori motif satwa fauna (fauna ⊆ motif). Mencocokkan batik yang memiliki relasi motif dengan kelas fauna."},{"concept":"flora","canonicalLabel":"Motif Flora (Bunga / Tumbuhan)","ontologyClass":"flora","property":"memilikiMotif","targetUri":"flora","synonyms":["flora","bunga","tumbuhan","tanaman","daun","pohon","teratai","anggrek","kembang","buketan","sulur","sekar","melati","lotus"],"reasoning":"Kata kunci merujuk pada kategori motif tumbuhan flora (flora ⊆ motif). Mencocokkan batik yang memiliki relasi motif dengan kelas flora."},{"concept":"geometris","canonicalLabel":"Motif Geometris (Simetris / Garis)","ontologyClass":"geometris","property":"memilikiMotif","targetUri":"geometris","synonyms":["geometris","garis","lingkaran","persegi","simetris","lereng","parang","kawung","belah ketupat","ceplok","pola teratur"],"reasoning":"Kata kunci merujuk pada ornamen geometris matematika tradisional (geometris ⊆ motif). Mencocokkan pola parang, kawung, ceplok, dll."},{"concept":"alam","canonicalLabel":"Motif Alam (Awan / Ombak / Langit)","ontologyClass":"alam","property":"memilikiMotif","targetUri":"alam","synonyms":["alam","awan","ombak","langit","gunung","batu","air","megamendung","mega mendung","cuaca","kosmos"],"reasoning":"Kata kunci merujuk pada ornamen unsur alam semesta (alam ⊆ motif). Mencocokkan motif seperti Megamendung dan pemandangan alam."},{"concept":"alami","canonicalLabel":"Pewarna Alami Organik","ontologyClass":"alami","property":"menggunakanPewarnaan","targetUri":"alami","synonyms":["alami","natural","organik","daun","akar","kulit kayu","soga","indigo","nila","tarum","mengkudu","secang","tanah liat","tanah liek"],"reasoning":"Kata kunci merujuk pada zat pewarna ramah lingkungan dari flora/tanah (alami ⊆ pewarnaan). Mencocokkan teknik pewarnaan tradisional."},{"concept":"sintetis","canonicalLabel":"Pewarna Sintetis Kimia","ontologyClass":"sintetis","property":"menggunakanPewarnaan","targetUri":"sintetis","synonyms":["sintetis","kimia","reaktif","napthol","remazol","indigosol","pewarna buatan","sablon kimia"],"reasoning":"Kata kunci merujuk pada zat pewarna kimia sintetis modern (sintetis ⊆ pewarnaan)."},{"concept":"tulis","canonicalLabel":"Batik Tulis Canting","ontologyClass":"batik_tulis","property":"dibuatDenganTeknik","targetUri":"Teknik_Tulis","synonyms":["tulis","canting","manual","tangan","handmade","tulis tangan","cucuk canting"],"reasoning":"Kata kunci merujuk pada teknik pembuatan batik tulis tradisional (batik_tulis ⊆ Kain_Batik) menggunakan canting."},{"concept":"cap","canonicalLabel":"Batik Cap Tembaga","ontologyClass":"batik_cap","property":"dibuatDenganTeknik","targetUri":"Teknik_Cap","synonyms":["cap","stempel","tembaga","canting cap","cetakan tembaga"],"reasoning":"Kata kunci merujuk pada teknik cap lilin malam tembaga (batik_cap ⊆ Kain_Batik)."},{"concept":"cetak","canonicalLabel":"Batik Cetak / Printing","ontologyClass":"batik_cetak","property":"dibuatDenganTeknik","targetUri":"Teknik_Cetak","synonyms":["cetak","printing","sablon","mesin","pabrik","tekstil sablon"],"reasoning":"Kata kunci merujuk pada teknik cetak/sablon modern (batik_cetak ⊆ Kain_Batik)."},{"concept":"malam","canonicalLabel":"Bahan Malam (Lilin Batik)","ontologyClass":"malam","property":"menggunakanBahanMalam","targetUri":"malam","synonyms":["malam","lilin","wax","klowong","tembokan","gondorukem","damar","parafin"],"reasoning":"Kata kunci merujuk pada media perintang malam/lilin panas (malam ⊆ owl:Thing)."},{"concept":"jogja","canonicalLabel":"Yogyakarta (DI Yogyakarta)","ontologyClass":"provinsi","property":"berasalDari","targetUri":"Provinsi_DI_Yogyakarta","synonyms":["jogja","yogya","diy","yogyakarta","ngayogyakarta","mataram"],"reasoning":"Kata kunci geografis diperluas ke sentra batik Daerah Istimewa Yogyakarta."},{"concept":"solo","canonicalLabel":"Solo / Surakarta","ontologyClass":"kabupaten","property":"berasalDari","targetUri":"Kota_Surakarta","synonyms":["solo","surakarta","laweyan","kauman"],"reasoning":"Kata kunci geografis diperluas ke sentra batik Surakarta Hadiningrat (Solo)."},{"concept":"pesisir","canonicalLabel":"Batik Pesisir Pantura","ontologyClass":"kabupaten","property":"berasalDari","targetUri":"Kota_Pekalongan","synonyms":["pesisir","pantura","pekalongan","cirebon","lasem","tuban","bangkalan","madura"],"reasoning":"Kata kunci gaya pesisiran nusantara (warna cerah, motif akulturasi Tiongkok & Eropa)."}]};
+    let allBatiks = ONTOLOGY_BUNDLE.batiks;
+    let filteredBatiks = [...allBatiks];
+
+    function updateIcons() {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function switchTab(tabId) {
+      ['landing', 'search', 'knowledge', 'sparql', 'guide'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === tabId) {
+          el.classList.remove('hidden');
+          btn.className = "px-3.5 py-1.5 rounded transition bg-keraton-gold text-keraton-navy font-bold";
+        } else {
+          el.classList.add('hidden');
+          btn.className = "px-3.5 py-1.5 rounded transition text-gray-300 hover:text-white hover:bg-white/5";
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updateIcons();
+    }
+
+    function setQuery(q) {
+      const input = document.getElementById('search-input');
+      input.value = q;
+      handleSearch();
+      switchTab('search');
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('search-input');
+      input.value = '';
+      handleSearch();
+    }
+
+    function resetFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('filter-jenis').value = 'all';
+      document.getElementById('filter-motif').value = 'all';
+      document.getElementById('filter-acara').value = 'all';
+      document.getElementById('filter-warna').value = 'all';
+      document.getElementById('filter-pulau').value = 'all';
+      document.getElementById('filter-sort').value = 'relevance';
+      handleSearch();
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const filterJenis = document.getElementById('filter-jenis').value;
+      const filterMotif = document.getElementById('filter-motif').value;
+      const filterAcara = document.getElementById('filter-acara').value;
+      const filterWarna = document.getElementById('filter-warna').value;
+      const filterPulau = document.getElementById('filter-pulau').value;
+      const sortOption = document.getElementById('filter-sort').value;
+
+      const btnClear = document.getElementById('btn-clear');
+      if (query.length > 0) btnClear.classList.remove('hidden');
+      else btnClear.classList.add('hidden');
+
+      // Deteksi Pemetaan Tesaurus Sinonim
+      let semanticMatch = null;
+      if (query.length > 0) {
+        for (const item of ONTOLOGY_BUNDLE.thesaurus) {
+          const matchedSynonym = item.synonyms.find(syn => query.includes(syn) || syn.includes(query));
+          if (matchedSynonym) {
+            semanticMatch = {
+              ...item,
+              matchedKeyword: matchedSynonym
+            };
+            break;
+          }
+        }
+      }
+
+      // Penanganan Tampilan Penalaran Semantik
+      const reasoningBox = document.getElementById('semantic-reasoning-box');
+      const conceptBadge = document.getElementById('semantic-concept-badge');
+      const reasoningText = document.getElementById('semantic-reasoning-text');
+
+      if (semanticMatch) {
+        reasoningBox.classList.remove('hidden');
+        conceptBadge.innerText = semanticMatch.canonicalLabel;
+        reasoningText.innerHTML = 'Kata kunci <strong>&quot;' + semanticMatch.matchedKeyword + '&quot;</strong> dipetakan ke konsep ontologi <code class="bg-amber-100 px-1 rounded font-mono font-bold">' + semanticMatch.ontologyClass + '</code>. ' + semanticMatch.reasoning;
+      } else {
+        reasoningBox.classList.add('hidden');
+      }
+
+      // Filter Data
+      filteredBatiks = allBatiks.filter(b => {
+        if (filterJenis !== 'all' && b.tipe !== filterJenis && !b.tipe.includes(filterJenis)) return false;
+        if (filterMotif !== 'all' && b.motif.kategori !== filterMotif) return false;
+        if (filterAcara !== 'all' && !b.acara.some(a => a.tipe === filterAcara || a.id.toLowerCase().includes(filterAcara))) return false;
+        if (filterWarna !== 'all' && !b.pewarnaan.some(p => p.tipe === filterWarna)) return false;
+        if (filterPulau !== 'all' && b.wilayah.pulau !== filterPulau) return false;
+
+        if (!query) return true;
+
+        // Pencocokan Langsung
+        const inName = b.nama.toLowerCase().includes(query);
+        const inDaerah = b.wilayah.nama.toLowerCase().includes(query) || b.wilayah.provinsi.toLowerCase().includes(query);
+        const inMotif = b.motif.nama.toLowerCase().includes(query) || b.motif.makna.toLowerCase().includes(query);
+        const inDesc = b.deskripsi.toLowerCase().includes(query) || b.maknaFilosofis.toLowerCase().includes(query);
+        const inWarna = b.warnaDominan.toLowerCase().includes(query) || b.pewarnaan.some(p => p.nama.toLowerCase().includes(query));
+        const inAcara = b.acara.some(a => a.nama.toLowerCase().includes(query));
+        const inTeknik = b.teknik.nama.toLowerCase().includes(query) || b.teknik.alat.toLowerCase().includes(query);
+
+        if (inName || inDaerah || inMotif || inDesc || inWarna || inAcara || inTeknik) {
+          return true;
+        }
+
+        // Pencocokan Berdasarkan Ekspansi Sinonim
+        if (semanticMatch) {
+          if (semanticMatch.concept === 'pernikahan' && b.acara.some(a => a.tipe === 'pernikahan' || a.id.includes('Pernikahan'))) return true;
+          if (semanticMatch.concept === 'kematian' && b.acara.some(a => a.tipe === 'kematian' || a.id.includes('Kematian'))) return true;
+          if (semanticMatch.concept === 'kelahiran' && b.acara.some(a => a.tipe === 'kelahiran' || a.id.includes('Mitoni'))) return true;
+          if (semanticMatch.concept === 'kerajaan' && (b.acara.some(a => a.tipe === 'kerajaan') || b.aturanPemakaian.toLowerCase().includes('keraton') || b.aturanPemakaian.toLowerCase().includes('raja'))) return true;
+          if (semanticMatch.concept === 'formal' && b.acara.some(a => a.tipe === 'busana_formal')) return true;
+          if (semanticMatch.concept === 'souvenir' && b.acara.some(a => a.tipe === 'souvenir')) return true;
+          if (semanticMatch.concept === 'fauna' && b.motif.kategori === 'fauna') return true;
+          if (semanticMatch.concept === 'flora' && b.motif.kategori === 'flora') return true;
+          if (semanticMatch.concept === 'geometris' && b.motif.kategori === 'geometris') return true;
+          if (semanticMatch.concept === 'alam' && b.motif.kategori === 'alam') return true;
+          if (semanticMatch.concept === 'alami' && b.pewarnaan.some(p => p.tipe === 'alami')) return true;
+          if (semanticMatch.concept === 'sintetis' && b.pewarnaan.some(p => p.tipe === 'sintetis')) return true;
+          if (semanticMatch.concept === 'tulis' && (b.tipe === 'batik_tulis' || b.teknik.alat.toLowerCase().includes('canting'))) return true;
+          if (semanticMatch.concept === 'cap' && (b.tipe === 'batik_cap' || b.tipe === 'tulis_cap')) return true;
+          if (semanticMatch.concept === 'cetak' && b.tipe === 'batik_cetak') return true;
+          if (semanticMatch.concept === 'malam' && b.malam.length > 0) return true;
+          if (semanticMatch.concept === 'jogja' && (b.wilayah.provinsi.includes('Yogyakarta') || b.wilayah.nama.includes('Yogyakarta'))) return true;
+          if (semanticMatch.concept === 'solo' && (b.wilayah.nama.includes('Surakarta') || b.wilayah.provinsi.includes('Jawa Tengah'))) return true;
+          if (semanticMatch.concept === 'pesisir' && ['Pekalongan', 'Cirebon', 'Lasem', 'Rembang', 'Tuban', 'Bangkalan'].some(c => b.wilayah.nama.includes(c))) return true;
+        }
+
+        return false;
+      });
+
+      // Urutkan Data
+      if (sortOption === 'name-asc') {
+        filteredBatiks.sort((a, b) => a.nama.localeCompare(b.nama));
+      } else if (sortOption === 'name-desc') {
+        filteredBatiks.sort((a, b) => b.nama.localeCompare(a.nama));
+      } else if (sortOption === 'region') {
+        filteredBatiks.sort((a, b) => a.wilayah.nama.localeCompare(b.wilayah.nama));
+      }
+
+      renderBatikCards();
+      document.getElementById('results-count').innerText = filteredBatiks.length;
+    }
+
+    // Render 4 Mahakarya Utama di Landing Page
+    function renderMasterpieces() {
+      const container = document.getElementById('masterpiece-grid');
+      const featuredIds = ['Batik_Parang_Rusak', 'Batik_Megamendung', 'Batik_Kawung', 'Batik_Truntum'];
+      const featured = allBatiks.filter(b => featuredIds.includes(b.id));
+
+      container.innerHTML = featured.map(b => {
+        return `
+          <div class="bg-white rounded-xl overflow-hidden border border-soga-200 shadow-sm hover:shadow-md hover:border-keraton-gold transition flex flex-col justify-between group">
+            <div>
+              <!-- Gambar Motif -->
+              <div class="h-44 w-full bg-soga-100 overflow-hidden relative">
+                <img src="/img/${b.id}" alt="${b.nama}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='/gambar/${b.id}.svg'" />
+                <span class="absolute top-2 left-2 px-2 py-0.5 bg-black/75 text-keraton-goldLight rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
+                  ${b.jenisLabel}
+                </span>
+              </div>
+
+              <div class="p-4 space-y-2">
+                <h4 class="text-sm font-bold text-soga-900 group-hover:text-keraton-gold transition font-display">
+                  ${b.nama}
+                </h4>
+                <p class="text-[11px] text-gray-500">
+                  ${b.wilayah.nama}, ${b.wilayah.provinsi}
+                </p>
+                <p class="text-xs text-gray-700 italic line-clamp-3 bg-soga-50 p-2.5 rounded border border-soga-200">
+                  "${b.maknaFilosofis}"
+                </p>
+              </div>
+            </div>
+
+            <div class="p-4 pt-0">
+              <button 
+                onclick="openModal('${b.id}')"
+                class="w-full py-2 bg-soga-100 hover:bg-keraton-gold hover:text-keraton-navy text-soga-900 font-semibold text-xs rounded transition border border-soga-300">
+                Lihat Detail Entitas
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Seluruh Kartu di Modul Katalog
+    function renderBatikCards() {
+      const grid = document.getElementById('batik-grid');
+      const emptyState = document.getElementById('empty-state');
+
+      if (filteredBatiks.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = filteredBatiks.map(b => {
+        return `
+          <div class="bg-white rounded-xl overflow-hidden border border-soga-200 shadow-sm hover:shadow-md hover:border-keraton-gold transition flex flex-col justify-between group">
+            <div>
+              <!-- Gambar Motif Batik -->
+              <div class="h-44 w-full bg-soga-100 overflow-hidden relative">
+                <img 
+                  src="/img/${b.id}" 
+                  alt="${b.nama}" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                  onerror="this.src='/gambar/${b.id}.svg'" 
+                />
+                <div class="absolute top-2 left-2 flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-black/75 text-keraton-goldLight backdrop-blur-sm uppercase tracking-wide">
+                    ${b.jenisLabel}
+                  </span>
+                  <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-white/90 text-gray-800 backdrop-blur-sm uppercase tracking-wide">
+                    ${b.motif.kategori}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Konten Rincian -->
+              <div class="p-4 space-y-2.5">
+                <div>
+                  <h3 class="text-base font-bold text-soga-900 group-hover:text-keraton-gold transition">${b.nama}</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    ${b.wilayah.nama}, ${b.wilayah.provinsi} (${b.wilayah.pulau})
+                  </p>
+                </div>
+
+                <div class="p-2.5 bg-soga-50 rounded border border-soga-200 text-xs text-soga-800 italic line-clamp-2">
+                  "${b.maknaFilosofis || b.deskripsi}"
+                </div>
+
+                <div class="space-y-1 text-[11px] text-gray-600">
+                  <div><span class="text-gray-400 font-medium">Motif:</span> ${b.motif.nama}</div>
+                  <div><span class="text-gray-400 font-medium">Pewarna:</span> ${b.pewarnaan.map(p => p.nama).join(', ') || 'Alami / Sintetis'}</div>
+                  <div><span class="text-gray-400 font-medium">Konteks:</span> ${b.acara.map(a => a.nama).join(', ') || 'Busana Umum'}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 pt-3 border-t border-soga-100 flex items-center justify-between text-xs">
+              <span class="text-gray-500 text-[11px]">Kerumitan: <strong class="text-soga-900">${b.tingkatKerumitan}</strong></span>
+              <button 
+                onclick="openModal('${b.id}')"
+                class="px-3 py-1.5 bg-soga-100 hover:bg-keraton-gold hover:text-keraton-navy text-soga-900 font-semibold rounded transition border border-soga-300">
+                Rincian Entitas
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      updateIcons();
+    }
+
+    function openModal(batikId) {
+      const b = allBatiks.find(item => item.id === batikId);
+      if (!b) return;
+
+      document.getElementById('modal-img').src = '/img/' + b.id;
+      document.getElementById('modal-jenis-badge').innerText = b.jenisLabel;
+      document.getElementById('modal-title').innerText = b.nama;
+      document.getElementById('modal-daerah').innerText = b.wilayah.nama + ', ' + b.wilayah.provinsi + ' (' + b.wilayah.pulau + ')';
+      document.getElementById('modal-filosofi').innerText = b.maknaFilosofis || 'Tidak ada catatan filosofis khusus.';
+      document.getElementById('modal-deskripsi').innerText = b.deskripsi;
+      
+      const sejarahWrapper = document.getElementById('modal-sejarah-wrapper');
+      if (b.sejarah) {
+        sejarahWrapper.classList.remove('hidden');
+        document.getElementById('modal-sejarah').innerText = b.sejarah;
+      } else {
+        sejarahWrapper.classList.add('hidden');
+      }
+
+      document.getElementById('modal-aturan').innerText = b.aturanPemakaian;
+      document.getElementById('modal-golongan').innerText = b.golonganPemakai;
+      document.getElementById('modal-warna').innerText = b.warnaDominan;
+      document.getElementById('modal-kerumitan').innerText = b.tingkatKerumitan;
+
+      const relGrid = document.getElementById('modal-relations-grid');
+      relGrid.innerHTML = `
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Relasi Asal Wilayah</span>
+          <strong class="text-soga-900 font-semibold">${b.wilayah.nama}</strong>
+          <span class="block text-[11px] text-gray-500">Prov. ${b.wilayah.provinsi}</span>
+        </div>
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Relasi Motif</span>
+          <strong class="text-soga-900 font-semibold">${b.motif.nama}</strong>
+          <span class="block text-[11px] text-gray-500">Kelas: ${b.motif.kategori}</span>
+        </div>
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Teknik Manufaktur</span>
+          <strong class="text-soga-900 font-semibold">${b.teknik.nama}</strong>
+          <span class="block text-[11px] text-gray-500">Alat: ${b.teknik.alat}</span>
+        </div>
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Bahan Malam Lilin</span>
+          <strong class="text-soga-900 font-semibold">${b.malam.map(m => m.nama).join(', ') || 'Malam Lilin Panas'}</strong>
+        </div>
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Zat Pewarna</span>
+          <strong class="text-soga-900 font-semibold">${b.pewarnaan.map(p => p.nama).join(', ') || 'Alami / Sintetis'}</strong>
+        </div>
+        <div class="p-2.5 bg-soga-50 rounded border border-soga-200">
+          <span class="text-gray-400 block text-[10px] uppercase font-bold">Konteks Seremonial</span>
+          <strong class="text-soga-900 font-semibold">${b.acara.map(a => a.nama).join(', ') || 'Busana Formal'}</strong>
+        </div>
+      `;
+
+      const turtleCode = `@prefix : <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:${b.id} rdf:type :${b.tipe} ;
+    :namaBatik "${b.nama}" ;
+    :berasalDari :${b.wilayah.id} ;
+    :dibuatDenganTeknik :${b.teknik.id} ;
+    :memilikiMotif :${b.motif.id} ;
+    ${b.acara.map(a => ':dipakaiPadaAcara :' + a.id + ' ;').join('\n    ')}
+    :bahanKain "${b.bahanKain}" ;
+    :warnaDominan "${b.warnaDominan}" ;
+    :maknaFilosofis "${(b.maknaFilosofis || '').replace(/"/g, '\\"')}" .`;
+
+      document.getElementById('modal-turtle').innerText = turtleCode;
+      document.getElementById('batik-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('batik-modal').classList.add('hidden');
+    }
+
+    function salinTurtle() {
+      const code = document.getElementById('modal-turtle').innerText;
+      navigator.clipboard.writeText(code);
+      alert('Sintaks RDF Turtle berhasil disalin ke clipboard.');
+    }
+
+    function renderTaxonomyTree() {
+      const container = document.getElementById('taxonomy-tree');
+      const root = ONTOLOGY_BUNDLE.taxonomy;
+
+      function createNodeHtml(node, depth = 0) {
+        const hasChildren = node.children && node.children.length > 0;
+        const indentClass = depth === 0 ? '' : 'ml-4 sm:ml-6 border-l-2 border-soga-300 pl-3 sm:pl-4 mt-2';
+
+        return `
+          <div class="${indentClass}">
+            <div class="p-2.5 bg-soga-50 rounded border border-soga-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-[11px] font-bold text-soga-900 bg-soga-200 px-1.5 py-0.5 rounded">
+                  ${node.name}
+                </span>
+                <span class="font-bold text-soga-900">${node.label || node.name}</span>
+                ${node.count !== null ? `<span class="text-[10px] text-gray-500 font-mono">(${node.count} entitas)</span>` : ''}
+              </div>
+              <span class="text-gray-500 text-[11px]">${node.desc || ''}</span>
+            </div>
+            ${hasChildren ? `
+              <div class="space-y-1">
+                ${node.children.map(child => createNodeHtml(child, depth + 1)).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      container.innerHTML = root.children.map(child => createNodeHtml(child, 0)).join('');
+    }
+
+    const SPARQL_PRESETS = {
+      1: `PREFIX : <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# Cari batik untuk acara Pernikahan Adat beserta nilai filosofisnya
+SELECT ?namaBatik ?maknaFilosofis ?namaDaerah WHERE {
+  ?batik :namaBatik ?namaBatik ;
+         :dipakaiPadaAcara :Acara_Pernikahan_Adat ;
+         :maknaFilosofis ?maknaFilosofis ;
+         :berasalDari ?daerah .
+  ?daerah :namaWilayah ?namaDaerah .
+} LIMIT 10`,
+
+      2: `PREFIX : <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# Cari batik bermotif Fauna dengan bahan Pewarna Alami
+SELECT ?namaBatik ?namaMotif ?namaPewarna WHERE {
+  ?batik :namaBatik ?namaBatik ;
+         :memilikiMotif ?motif ;
+         :menggunakanPewarnaan ?pewarna .
+  ?motif rdf:type :fauna ;
+         :namaMotif ?namaMotif .
+  ?pewarna rdf:type :alami ;
+           :namaPewarna ?namaPewarna .
+}`,
+
+      3: `PREFIX : <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-3#>
+
+# Cari batik asal Jawa yang memiliki aturan pemakaian khusus keraton
+SELECT ?namaBatik ?aturanPemakaian ?pulau WHERE {
+  ?batik :namaBatik ?namaBatik ;
+         :aturanPemakaian ?aturanPemakaian ;
+         :berasalDari ?daerah .
+  ?daerah :pulau "Jawa" .
+  FILTER(CONTAINS(LCASE(?aturanPemakaian), "keraton") || CONTAINS(LCASE(?aturanPemakaian), "larangan"))
+}`,
+
+      4: `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Kueri taksonomi hierarki kelas (subClassOf) ontologi batik
+SELECT ?subClass ?superClass WHERE {
+  ?subClass rdfs:subClassOf ?superClass .
+  FILTER(STRSTARTS(STR(?subClass), "http://www.semanticweb.org/asus/ontologies"))
+}`
+    };
+
+    function loadSparqlPreset(num) {
+      document.getElementById('sparql-textarea').value = SPARQL_PRESETS[num];
+      runSparqlSimulator();
+    }
+
+    function runSparqlSimulator() {
+      const q = document.getElementById('sparql-textarea').value;
+      const countEl = document.getElementById('sparql-result-count');
+      const tableEl = document.getElementById('sparql-result-table');
+
+      let rows = [];
+
+      if (q.includes('Acara_Pernikahan_Adat')) {
+        const matches = allBatiks.filter(b => b.acara.some(a => a.id.includes('Pernikahan')));
+        rows = matches.map(b => ({
+          namaBatik: b.nama,
+          maknaFilosofis: b.maknaFilosofis.substring(0, 55) + '...',
+          namaDaerah: b.wilayah.nama
+        }));
+      } else if (q.includes('fauna')) {
+        const matches = allBatiks.filter(b => b.motif.kategori === 'fauna');
+        rows = matches.map(b => ({
+          namaBatik: b.nama,
+          namaMotif: b.motif.nama,
+          namaPewarna: b.pewarnaan.map(p => p.nama).join(', ') || 'Alami (soga/indigo)'
+        }));
+      } else if (q.includes('keraton') || q.includes('larangan')) {
+        const matches = allBatiks.filter(b => b.aturanPemakaian.toLowerCase().includes('keraton') || b.aturanPemakaian.toLowerCase().includes('larangan') || b.acara.some(a => a.tipe === 'kerajaan'));
+        rows = matches.map(b => ({
+          namaBatik: b.nama,
+          aturanPemakaian: b.aturanPemakaian,
+          pulau: b.wilayah.pulau
+        }));
+      } else {
+        rows = [
+          { subClass: ":batik_tulis", superClass: ":Kain_Batik" },
+          { subClass: ":batik_cap", superClass: ":Kain_Batik" },
+          { subClass: ":batik_cetak", superClass: ":Kain_Batik" },
+          { subClass: ":flora", superClass: ":motif" },
+          { subClass: ":fauna", superClass: ":motif" },
+          { subClass: ":geometris", superClass: ":motif" },
+          { subClass: ":alam", superClass: ":motif" },
+          { subClass: ":pernikahan", superClass: ":adat" },
+          { subClass: ":kelahiran", superClass: ":adat" },
+          { subClass: ":kematian", superClass: ":adat" },
+          { subClass: ":kerajaan", superClass: ":adat" }
+        ];
+      }
+
+      countEl.innerText = rows.length + ' baris ditemukan';
+
+      if (rows.length === 0) {
+        tableEl.innerHTML = '<div class="text-gray-400 py-3 text-center">0 baris hasil.</div>';
+        return;
+      }
+
+      const keys = Object.keys(rows[0]);
+      let tableHtml = '<table class="w-full border-collapse"><thead><tr class="border-b border-slate-700 text-slate-400">';
+      keys.forEach(k => tableHtml += '<th class="p-2 text-left">?' + k + '</th>');
+      tableHtml += '</tr></thead><tbody>';
+
+      rows.forEach(r => {
+        tableHtml += '<tr class="border-b border-slate-800 hover:bg-slate-800/50">';
+        keys.forEach(k => tableHtml += '<td class="p-2 text-emerald-300">' + r[k] + '</td>');
+        tableHtml += '</tr>';
+      });
+
+      tableHtml += '</tbody></table>';
+      tableEl.innerHTML = tableHtml;
+    }
+
+    async function syncBackendData() {
+      try {
+        const res = await fetch('/api/batik');
+        if (res.ok) {
+          const serverData = await res.json();
+          if (Array.isArray(serverData) && serverData.length > 0) {
+            console.log('Sinkronisasi backend Jena aktif: ' + serverData.length + ' entitas.');
+          }
+        }
+      } catch (e) {
+        console.log('Menggunakan basis data lokal.');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMasterpieces();
+      loadSparqlPreset(1);
+      renderTaxonomyTree();
+      handleSearch();
+      syncBackendData();
+      updateIcons();
+    });
+  </script>
+</body>
+</html>
