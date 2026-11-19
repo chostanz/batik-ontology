@@ -197,6 +197,15 @@ function BatikMark() {
   );
 }
 
+const TYPEWRITER_PHRASES = [
+  "menyimpan cerita.",
+  "merajut doa luhur.",
+  "merekam jejak budaya.",
+  "mengukir identitas bangsa.",
+  "menyulam filosofi hidup.",
+  "menjaga warisan dunia.",
+];
+
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [activeMotifKat, setActiveMotifKat] = useState("all");
@@ -227,6 +236,39 @@ export default function App() {
     }, 6500);
     return () => clearInterval(timer);
   }, []);
+
+  // Hero Typewriter Animation State
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = TYPEWRITER_PHRASES[phraseIdx];
+    let timeout: NodeJS.Timeout;
+
+    if (!isDeleting && typedText === currentPhrase) {
+      // Pause when full phrase is typed
+      timeout = setTimeout(() => setIsDeleting(true), 2400);
+    } else if (isDeleting && typedText === "") {
+      // Switch to next phrase when deleted
+      setIsDeleting(false);
+      setPhraseIdx((prev) => (prev + 1) % TYPEWRITER_PHRASES.length);
+      timeout = setTimeout(() => {}, 350);
+    } else {
+      // Typing or deleting characters
+      const speed = isDeleting ? 40 : 80;
+      timeout = setTimeout(() => {
+        setTypedText(
+          currentPhrase.substring(
+            0,
+            isDeleting ? typedText.length - 1 : typedText.length + 1
+          )
+        );
+      }, speed);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [typedText, isDeleting, phraseIdx]);
 
   // Close suggestions when clicked outside
   useEffect(() => {
@@ -514,10 +556,13 @@ export default function App() {
                 Web Semantik • 48 Individu Batik OWL 2 DL
               </div>
 
-              <h1 className="font-display text-[46px] leading-[.98] tracking-[-.045em] text-[#fffaf0] sm:text-[66px] lg:text-[78px]">
+              <h1 className="font-display text-[44px] leading-[1.08] tracking-[-.045em] text-[#fffaf0] sm:text-[64px] lg:text-[76px] min-h-[2.2em]">
                 Setiap gurat,
                 <br />
-                <em className="font-normal text-[#dfb47d]">menyimpan cerita.</em>
+                <span className="font-normal text-[#dfb47d] inline-flex items-center flex-wrap">
+                  <span>{typedText}</span>
+                  <span className="inline-block w-[3px] sm:w-[4px] h-[0.8em] bg-[#dfb47d] ml-1.5 animate-pulse align-middle rounded-full shadow-[0_0_10px_#dfb47d]" />
+                </span>
               </h1>
 
               <p className="mt-6 max-w-[540px] text-[15px] leading-7 text-[#e5dfd2]/85 sm:text-base">
