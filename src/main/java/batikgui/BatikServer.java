@@ -88,7 +88,7 @@ public class BatikServer {
 
             // 2. Coba id dengan ekstensi
             String id = path.replaceFirst("\\.[a-zA-Z0-9]+$", "").replaceAll("[^A-Za-z0-9_]", "");
-            for (String ext : new String[]{"svg", "png", "jpg", "jpeg", "webp", "gif"}) {
+            for (String ext : new String[]{"jpg", "jpeg", "webp", "png", "avif", "svg", "gif"}) {
                 String fileName = id + "." + ext;
                 // Coba muat dari classpath
                 try (InputStream in = BatikServer.class.getResourceAsStream("/gambar/" + fileName)) {
@@ -190,6 +190,7 @@ public class BatikServer {
         if (p.endsWith(".png")) return "image/png";
         if (p.endsWith(".jpg") || p.endsWith(".jpeg")) return "image/jpeg";
         if (p.endsWith(".webp")) return "image/webp";
+        if (p.endsWith(".avif")) return "image/avif";
         if (p.endsWith(".ico")) return "image/x-icon";
         if (p.endsWith(".woff2")) return "font/woff2";
         if (p.endsWith(".woff")) return "font/woff";
