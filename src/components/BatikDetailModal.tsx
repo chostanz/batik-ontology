@@ -248,8 +248,145 @@ export function BatikDetailModal({ batik, onClose, onSelectRelated }: BatikDetai
           {/* TAB 2: RELASI GRAF TRIPLES (OWL ONTOLOGY) */}
           {activeTab === 'triples' && (
             <div className="space-y-4">
-              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFC9] text-xs text-gray-700">
-                Graf ontologi merepresentasikan entitas individu bernilai semantik formal. Setiap kartu triple di bawah mencerminkan tupel <code>&lt;Subject, Predicate, Object&gt;</code> yang dapat diinferensikan oleh Jena Reasoner.
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8DFC9] text-xs text-gray-700 flex items-center justify-between gap-3">
+                <div>
+                  Graf ontologi merepresentasikan entitas individu bernilai semantik formal. Setiap kartu triple di bawah mencerminkan tupel <code>&lt;Subject, Predicate, Object&gt;</code> yang dapat diinferensikan oleh Jena Reasoner.
+                </div>
+                <div className="text-[10px] text-[#C59B27] font-bold uppercase tracking-wider shrink-0 flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5" /> Diagram Interaktif
+                </div>
+              </div>
+
+              {/* Interactive Visual SVG Triple Graph Diagram */}
+              <div className="rounded-2xl border border-[#D9CEBC] bg-gradient-to-b from-[#0F1D18] to-[#172E25] p-3 text-white overflow-hidden shadow-inner">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-[#DFB47D] px-2 pt-1 flex items-center justify-between">
+                  <span>Visualisasi Radial Triples Semantik</span>
+                  <span className="text-[9px] text-white/50">W3C RDF / OWL 2</span>
+                </div>
+                <div className="w-full overflow-x-auto">
+                  <svg viewBox="0 0 640 230" className="w-full h-56 min-w-[500px]">
+                    <defs>
+                      <linearGradient id="gradCenter" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#DFB47D" />
+                        <stop offset="100%" stopColor="#A35F3D" />
+                      </linearGradient>
+                      <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                          <feMergeNode in="coloredBlur"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                      </filter>
+                    </defs>
+
+                    {/* Connecting Lines */}
+                    {[
+                      { x: 120, y: 45, label: ':berasalDari', color: '#10B981' },
+                      { x: 520, y: 45, label: ':memilikiMotif', color: '#38BDF8' },
+                      { x: 90, y: 175, label: ':dibuatDenganTeknik', color: '#C084FC' },
+                      { x: 550, y: 175, label: ':memilikiKegunaan', color: '#FB7185' },
+                      { x: 320, y: 200, label: ':menggunakanPewarnaan', color: '#F59E0B' },
+                    ].map((line, idx) => (
+                      <g key={idx}>
+                        <line
+                          x1="320"
+                          y1="105"
+                          x2={line.x}
+                          y2={line.y}
+                          stroke={line.color}
+                          strokeWidth="1.8"
+                          strokeDasharray="4 3"
+                          opacity="0.75"
+                        />
+                        <rect
+                          x={(320 + line.x) / 2 - 42}
+                          y={(105 + line.y) / 2 - 8}
+                          width="84"
+                          height="16"
+                          rx="4"
+                          fill="#0B132B"
+                          opacity="0.85"
+                        />
+                        <text
+                          x={(320 + line.x) / 2}
+                          y={(105 + line.y) / 2 + 3}
+                          fill="#E8C56A"
+                          fontSize="8.5"
+                          fontFamily="monospace"
+                          textAnchor="middle"
+                        >
+                          {line.label}
+                        </text>
+                      </g>
+                    ))}
+
+                    {/* Central Batik Node */}
+                    <g className="cursor-pointer" filter="url(#glow)">
+                      <circle cx="320" cy="105" r="32" fill="url(#gradCenter)" stroke="#FFFFFF" strokeWidth="2" />
+                      <text x="320" y="103" fill="#17251F" fontSize="10" fontWeight="bold" textAnchor="middle">
+                        :{batik.id.length > 14 ? batik.id.slice(0, 12) + '..' : batik.id}
+                      </text>
+                      <text x="320" y="117" fill="#2E1B0E" fontSize="8" textAnchor="middle">
+                        (Kain_Batik)
+                      </text>
+                    </g>
+
+                    {/* Satellite Node 1: Wilayah */}
+                    <g className="cursor-pointer">
+                      <circle cx="120" cy="45" r="22" fill="#10B981" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <text x="120" y="47" fill="#FFFFFF" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                        {batik.wilayah.nama.slice(0, 11)}
+                      </text>
+                      <text x="120" y="80" fill="#10B981" fontSize="8" textAnchor="middle">
+                        Wilayah
+                      </text>
+                    </g>
+
+                    {/* Satellite Node 2: Motif */}
+                    <g className="cursor-pointer">
+                      <circle cx="520" cy="45" r="22" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <text x="520" y="47" fill="#FFFFFF" fontSize="8.5" fontWeight="bold" textAnchor="middle">
+                        {batik.motif.kategori}
+                      </text>
+                      <text x="520" y="80" fill="#38BDF8" fontSize="8" textAnchor="middle">
+                        Ornamen
+                      </text>
+                    </g>
+
+                    {/* Satellite Node 3: Teknik */}
+                    <g className="cursor-pointer">
+                      <circle cx="90" cy="175" r="20" fill="#C084FC" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <text x="90" y="177" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">
+                        {batik.jenisLabel.replace('Batik ', '')}
+                      </text>
+                      <text x="90" y="206" fill="#C084FC" fontSize="8" textAnchor="middle">
+                        Teknik
+                      </text>
+                    </g>
+
+                    {/* Satellite Node 4: Acara */}
+                    <g className="cursor-pointer">
+                      <circle cx="550" cy="175" r="20" fill="#FB7185" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <text x="550" y="177" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">
+                        {batik.acara && batik.acara[0] ? batik.acara[0].tipe.slice(0, 9) : 'Adat'}
+                      </text>
+                      <text x="550" y="206" fill="#FB7185" fontSize="8" textAnchor="middle">
+                        Acara Adat
+                      </text>
+                    </g>
+
+                    {/* Satellite Node 5: Pewarnaan */}
+                    <g className="cursor-pointer">
+                      <circle cx="320" cy="200" r="18" fill="#F59E0B" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <text x="320" y="202" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">
+                        {batik.pewarnaan && batik.pewarnaan[0] ? batik.pewarnaan[0].tipe : 'Pewarna'}
+                      </text>
+                      <text x="320" y="226" fill="#F59E0B" fontSize="8" textAnchor="middle">
+                        Pewarnaan
+                      </text>
+                    </g>
+                  </svg>
+                </div>
               </div>
 
               <div className="space-y-2.5 font-mono text-xs">

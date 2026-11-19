@@ -1,10 +1,13 @@
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, useEffect, useRef } from "react";
 import ontologyBundle from "@/lib/ontologyData.json";
 import { searchSemanticBatik, BatikItem } from "@/lib/semanticEngine";
 import { BatikImage } from "@/components/BatikImage";
 import { BatikDetailModal } from "@/components/BatikDetailModal";
 import { KnowledgeBaseModule } from "@/components/KnowledgeBaseModule";
 import { SparqlModule } from "@/components/SparqlModule";
+import { SemanticGraphViewer } from "@/components/SemanticGraphViewer";
+import { ArchipelagoMap } from "@/components/ArchipelagoMap";
+import { MotifComparisonModal } from "@/components/MotifComparisonModal";
 import {
   Search,
   Filter,
@@ -24,9 +27,69 @@ import {
   Award,
   Layers,
   ArrowRight,
+  Scale,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  SlidersHorizontal,
+  X,
+  Compass,
 } from "lucide-react";
 
 const allBatiks: BatikItem[] = ontologyBundle.batiks as unknown as BatikItem[];
+
+const HERO_FEATURED = [
+  {
+    id: "Batik_Parang_Rusak",
+    name: "Parang Rusak",
+    region: "Yogyakarta, DI Yogyakarta",
+    category: "Awisan Dalem Keraton",
+    quote:
+      "Keteguhan moral, keberanian spiritual, dan pantang menyerah laksana ombak karang samudra selatan.",
+    palette: "from-[#c88b52] to-[#7d382b]",
+    pattern: "parang",
+  },
+  {
+    id: "Batik_Megamendung",
+    name: "Mega Mendung",
+    region: "Cirebon, Jawa Barat",
+    category: "Akulturasi Pesisiran",
+    quote:
+      "Ketenangan batin, kesabaran jiwa, dan gradasi tujuh lapis langit pembawa rahmat air hujan kesuburan.",
+    palette: "from-[#4b7580] to-[#173e4b]",
+    pattern: "mega",
+  },
+  {
+    id: "Batik_Kawung",
+    name: "Kawung",
+    region: "Yogyakarta, DI Yogyakarta",
+    category: "Kesucian & Pengendalian Diri",
+    quote:
+      "Simbol buah aren bersilang empat: kesucian hati, keadilan raja, dan pengendalian hawa nafsu batin.",
+    palette: "from-[#bc9a62] to-[#694c2c]",
+    pattern: "kawung",
+  },
+  {
+    id: "Batik_Singa_Barong",
+    name: "Singa Barong",
+    region: "Cirebon, Jawa Barat",
+    category: "Harmoni Empat Peradaban",
+    quote:
+      "Sinergi sakral empat peradaban: singa (Islam), gajah (Hindu), naga (Tiongkok), dan garuda (Nusantara).",
+    palette: "from-[#c69b3c] to-[#774525]",
+    pattern: "ulam",
+  },
+  {
+    id: "Batik_Truntum",
+    name: "Truntum",
+    region: "Surakarta, Jawa Tengah",
+    category: "Cinta Bersemi Abadi",
+    quote:
+      "Bintang bertaburan di malam gelap: simbol cinta tulus yang senantiasa bersemi kembali dalam pernikahan.",
+    palette: "from-[#b85d47] to-[#4e2830]",
+    pattern: "sekar",
+  },
+];
 
 function getBatikCategory(b: BatikItem): "Keraton" | "Pesisir" | "Nusantara" {
   const pulau = b.wilayah?.pulau?.toLowerCase() || "";
@@ -146,8 +209,93 @@ export default function App() {
 
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement | null>(null);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedBatik, setSelectedBatik] = useState<BatikItem | null>(null);
+  const [compareModalOpen, setCompareModalOpen] = useState(false);
+  const [compareInitialBatik, setCompareInitialBatik] = useState<BatikItem | undefined>(undefined);
+
+  // Hero Carousel State
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  // Auto-advance hero carousel every 6s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_FEATURED.length);
+    }, 6500);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Close suggestions when clicked outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Live autocomplete suggestions
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q || q.length < 2) return [];
+
+    const list: { label: string; sub: string; type: string; term: string }[] = [];
+
+    // Match batiks
+    allBatiks.forEach((b) => {
+      if (b.nama.toLowerCase().includes(q)) {
+        list.push({
+          label: b.nama,
+          sub: `${b.wilayah.nama} (${b.jenisLabel})`,
+          type: "Motif Batik",
+          term: b.nama,
+        });
+      } else if (b.wilayah.nama.toLowerCase().includes(q)) {
+        list.push({
+          label: b.wilayah.nama,
+          sub: `${b.wilayah.provinsi} (${b.wilayah.pulau})`,
+          type: "Wilayah Asal",
+          term: b.wilayah.nama,
+        });
+      }
+    });
+
+    // Match concepts
+    if ("awan".includes(q) || q.includes("awan")) {
+      list.push({
+        label: "Konsep: Awan & Alam",
+        sub: "Mega Mendung Cirebon",
+        type: "Semantik",
+        term: "awan",
+      });
+    }
+    if ("nikah".includes(q) || q.includes("pernikahan") || q.includes("manten")) {
+      list.push({
+        label: "Konsep: Upacara Pernikahan",
+        sub: "Truntum, Sido Asih, Sido Mukti",
+        type: "Semantik",
+        term: "pernikahan",
+      });
+    }
+    if ("ombak".includes(q) || q.includes("laut")) {
+      list.push({
+        label: "Konsep: Deburan Ombak Karang",
+        sub: "Parang Rusak",
+        type: "Semantik",
+        term: "ombak",
+      });
+    }
+
+    return list.slice(0, 5);
+  }, [query]);
 
   // Semantic search evaluation
   const searchResult = useMemo(() => {
@@ -181,9 +329,27 @@ export default function App() {
     return list;
   }, [searchResult, activeCategory, sortBy]);
 
+  // Category counts
+  const categoryCounts = useMemo(() => {
+    const counts = { Semua: allBatiks.length, Keraton: 0, Pesisir: 0, Nusantara: 0 };
+    allBatiks.forEach((b) => {
+      const cat = getBatikCategory(b);
+      counts[cat]++;
+    });
+    return counts;
+  }, []);
+
   function handleSearch(event: FormEvent) {
     event.preventDefault();
+    setShowSuggestions(false);
     setSearchTerm(query.trim());
+    document.querySelector("#jelajahi")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function handleSelectSuggestion(term: string) {
+    setQuery(term);
+    setSearchTerm(term);
+    setShowSuggestions(false);
     document.querySelector("#jelajahi")?.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -204,6 +370,11 @@ export default function App() {
     setQuery("");
   }
 
+  function handleOpenComparison(batik?: BatikItem) {
+    setCompareInitialBatik(batik);
+    setCompareModalOpen(true);
+  }
+
   const isFilterActive =
     activeCategory !== "Semua" ||
     activeMotifKat !== "all" ||
@@ -211,6 +382,9 @@ export default function App() {
     activeAcara !== "all" ||
     activePulau !== "all" ||
     searchTerm !== "";
+
+  const activeHeroMotif = HERO_FEATURED[heroIndex];
+  const activeHeroBatikObj = allBatiks.find((b) => b.id === activeHeroMotif.id);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f4efe5] text-[#1f2a25]">
@@ -229,26 +403,39 @@ export default function App() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-7 text-[13px] font-semibold text-white/80 lg:flex">
+          <nav className="hidden items-center gap-6 text-[13px] font-semibold text-white/80 lg:flex">
             <a className="transition hover:text-white" href="#jelajahi">
               Jelajahi Motif
             </a>
+            <a className="transition hover:text-white" href="#peta-pulau">
+              Peta Pulau
+            </a>
+            <a className="transition hover:text-white" href="#graf-ontologi">
+              Graf Semantik
+            </a>
             <a className="transition hover:text-white" href="#ontologi">
-              Peta Ontologi
+              Taksonomi
             </a>
             <a className="transition hover:text-white" href="#sparql">
-              SPARQL Query
+              SPARQL
             </a>
             <a className="transition hover:text-white" href="#cerita">
-              Cerita Batik
-            </a>
-            <a className="transition hover:text-white" href="#tentang">
-              Tentang
+              Cerita
             </a>
 
-            <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-medium text-[#dfb47d]">
+            {/* Quick Compare Button */}
+            <button
+              onClick={() => handleOpenComparison()}
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[#dfb47d]/40 bg-[#dfb47d]/15 px-3 py-1.5 text-xs font-bold text-[#dfb47d] transition hover:bg-[#dfb47d] hover:text-[#17251f]"
+            >
+              <Scale className="size-3.5" />
+              <span>Bandingkan</span>
+            </button>
+
+            {/* NetBeans Badge */}
+            <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium text-[#dfb47d]">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Apache NetBeans Ready</span>
+              <span>NetBeans Active</span>
             </div>
 
             <button
@@ -279,8 +466,10 @@ export default function App() {
           <nav className="mx-5 flex flex-col gap-1 rounded-2xl bg-[#f8f4eb] p-3 text-sm font-semibold shadow-2xl lg:hidden">
             {[
               ["Jelajahi Motif", "#jelajahi"],
-              ["Peta Ontologi", "#ontologi"],
-              ["SPARQL Query", "#sparql"],
+              ["Peta Sebaran Pulau", "#peta-pulau"],
+              ["Graf Semantik Interaktif", "#graf-ontologi"],
+              ["Peta Taksonomi Ontologi", "#ontologi"],
+              ["Konsol SPARQL Query", "#sparql"],
               ["Cerita Batik", "#cerita"],
               ["Tentang", "#tentang"],
             ].map(([label, href]) => (
@@ -293,146 +482,311 @@ export default function App() {
                 {label}
               </a>
             ))}
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                handleOpenComparison();
+              }}
+              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[#273b32] py-3 text-white font-bold"
+            >
+              <Scale className="size-4" /> Komparasi 2 Motif
+            </button>
           </nav>
         )}
       </header>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[760px] bg-[#24382f] lg:h-[94vh] lg:min-h-[720px]">
+      {/* Hero Section with Interactive Spotlight Carousel */}
+      <section className="relative min-h-[820px] bg-[#24382f] lg:min-h-[860px]">
         <img
           src="https://images.unsplash.com/photo-1590251869641-dd94fb569954?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=86&w=1800"
           alt="Perajin sedang mencanting kain batik"
           className="absolute inset-0 h-full w-full object-cover object-[65%_center] opacity-75"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(19,37,30,.98)_0%,rgba(21,39,31,.86)_42%,rgba(21,35,28,.2)_75%,rgba(15,25,21,.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(19,37,30,.98)_0%,rgba(21,39,31,.88)_48%,rgba(21,35,28,.25)_78%,rgba(15,25,21,.4)_100%)]" />
         <div className="batik-grid absolute inset-0 opacity-[.06]" />
 
-        <div className="relative mx-auto flex h-full min-h-[760px] max-w-[1240px] items-center px-6 pb-14 pt-32 lg:min-h-[720px] lg:px-10">
-          <div className="max-w-[720px]">
-            <div className="mb-6 flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[.3em] text-[#d5a574]">
-              <span className="h-px w-9 bg-[#d5a574]" />
-              Ensiklopedia & Web Semantik Batik Indonesia
-            </div>
+        <div className="relative mx-auto flex h-full min-h-[820px] max-w-[1240px] flex-col justify-center px-6 pb-16 pt-32 lg:min-h-[860px] lg:px-10">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+            {/* Left Column: Title, Search & Concepts */}
+            <div>
+              <div className="mb-6 flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[.3em] text-[#d5a574]">
+                <span className="h-px w-9 bg-[#d5a574]" />
+                Web Semantik • 48 Individu Batik OWL 2 DL
+              </div>
 
-            <h1 className="font-display text-[50px] leading-[.98] tracking-[-.045em] text-[#fffaf0] sm:text-[70px] lg:text-[84px]">
-              Setiap gurat,
-              <br />
-              <em className="font-normal text-[#dfb47d]">menyimpan cerita.</em>
-            </h1>
+              <h1 className="font-display text-[46px] leading-[.98] tracking-[-.045em] text-[#fffaf0] sm:text-[66px] lg:text-[78px]">
+                Setiap gurat,
+                <br />
+                <em className="font-normal text-[#dfb47d]">menyimpan cerita.</em>
+              </h1>
 
-            <p className="mt-6 max-w-[560px] text-[15px] leading-7 text-[#e5dfd2]/85 sm:text-base">
-              Menelusuri kekayaan 48 motif batik, filosofi luhur, dan kearifan Nusantara melalui
-              representasi pengetahuan ontologi Web Semantik yang saling terhubung.
-            </p>
+              <p className="mt-6 max-w-[540px] text-[15px] leading-7 text-[#e5dfd2]/85 sm:text-base">
+                Menelusuri kekayaan 48 motif batik Indonesia, filosofi luhur, dan kearifan Nusantara
+                melalui representasi ontologi pengetahuan Web Semantik yang saling terhubung.
+              </p>
 
-            {/* Semantic Search Box */}
-            <form
-              id="pencarian"
-              onSubmit={handleSearch}
-              className="mt-9 flex max-w-[620px] items-center rounded-full bg-[#fffaf0] p-1.5 pl-5 shadow-2xl shadow-black/25"
-            >
-              <SearchIcon className="size-5 shrink-0 text-[#8c897e]" />
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-[#27342e] outline-none placeholder:text-[#96948c]"
-                placeholder="Cari motif, makna, daerah, acara, atau konsep (cth: awan, nikah, ombak)..."
-                aria-label="Cari motif batik atau konsep ontologi"
-              />
-              <button
-                type="submit"
-                className="cursor-pointer rounded-full bg-[#a35f3d] px-6 py-3 text-xs font-bold text-white transition hover:bg-[#87472d]"
-              >
-                Temukan
-              </button>
-            </form>
-
-            {/* Quick search tags */}
-            <div className="mt-4 flex flex-wrap items-center gap-2 text-[11px] text-white/60">
-              <span className="text-[#dfb47d] font-semibold">Konsep Populer:</span>
-              {[
-                "Parang",
-                "Mega Mendung",
-                "Kawung",
-                "Truntum",
-                "Pernikahan",
-                "Pewarna Alami",
-                "Awisan Keraton",
-                "Awan",
-                "Tolak Bala",
-              ].map((term) => (
-                <button
-                  key={term}
-                  type="button"
-                  onClick={() => handleQuickSearch(term)}
-                  className="cursor-pointer rounded-full bg-white/10 px-2.5 py-1 text-white/80 transition hover:bg-white/20 hover:text-white"
+              {/* Semantic Search Box with Live Autocomplete */}
+              <div ref={searchContainerRef} className="relative mt-8 max-w-[590px]">
+                <form
+                  id="pencarian"
+                  onSubmit={handleSearch}
+                  className="flex items-center rounded-full bg-[#fffaf0] p-1.5 pl-5 shadow-2xl shadow-black/35 border border-[#dfb47d]/40 focus-within:ring-2 focus-within:ring-[#dfb47d]"
                 >
-                  {term}
-                </button>
-              ))}
+                  <SearchIcon className="size-5 shrink-0 text-[#8c897e]" />
+                  <input
+                    value={query}
+                    onChange={(event) => {
+                      setQuery(event.target.value);
+                      setShowSuggestions(true);
+                    }}
+                    onFocus={() => setShowSuggestions(true)}
+                    className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-[#27342e] outline-none placeholder:text-[#96948c]"
+                    placeholder="Cari motif, makna, daerah, acara, atau konsep (cth: awan, nikah, ombak)..."
+                    aria-label="Cari motif batik atau konsep ontologi"
+                  />
+                  <button
+                    type="submit"
+                    className="cursor-pointer rounded-full bg-[#a35f3d] px-6 py-3 text-xs font-bold text-white transition hover:bg-[#87472d] shadow-md"
+                  >
+                    Temukan
+                  </button>
+                </form>
+
+                {/* Autocomplete Dropdown */}
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="absolute inset-x-0 top-full mt-2 z-40 rounded-2xl bg-[#fffaf0] p-2 shadow-2xl border border-[#ded4c5] divide-y divide-[#eee5d7]">
+                    {suggestions.map((s, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectSuggestion(s.term)}
+                        className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-[#eee5d7] text-left transition cursor-pointer"
+                      >
+                        <div>
+                          <div className="text-xs font-bold text-[#26362f]">{s.label}</div>
+                          <div className="text-[10px] text-[#74766f]">{s.sub}</div>
+                        </div>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#a2613f] bg-[#e7ded1] px-2 py-0.5 rounded-full">
+                          {s.type}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Quick Popular Keywords */}
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-[11px] text-white/60">
+                <span className="text-[#dfb47d] font-semibold">Konsep Populer:</span>
+                {[
+                  "Parang",
+                  "Mega Mendung",
+                  "Kawung",
+                  "Truntum",
+                  "Pernikahan",
+                  "Pewarna Alami",
+                  "Awisan Keraton",
+                  "Awan",
+                  "Tolak Bala",
+                ].map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => handleQuickSearch(term)}
+                    className="cursor-pointer rounded-full bg-white/10 px-2.5 py-1 text-white/80 transition hover:bg-white/20 hover:text-white"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+
+              {/* Key Ontology Metrics Row */}
+              <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-white/10 pt-6 text-white/80">
+                <div>
+                  <span className="font-display text-2xl font-bold text-[#dfb47d]">48</span>
+                  <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">
+                    Motif Batik
+                  </span>
+                </div>
+                <div className="h-4 w-px bg-white/20" />
+                <div>
+                  <span className="font-display text-2xl font-bold text-[#dfb47d]">29</span>
+                  <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">
+                    Kelas OWL
+                  </span>
+                </div>
+                <div className="h-4 w-px bg-white/20" />
+                <div>
+                  <span className="font-display text-2xl font-bold text-[#dfb47d]">16</span>
+                  <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">
+                    Relasi Objek
+                  </span>
+                </div>
+                <div className="h-4 w-px bg-white/20" />
+                <div className="text-[11px] text-[#dfb47d] font-semibold flex items-center gap-1.5">
+                  <Award className="size-4" /> Warisan Dunia UNESCO 2009
+                </div>
+              </div>
             </div>
 
-            {/* Stats row in hero */}
-            <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-white/10 pt-6 text-white/80">
-              <div>
-                <span className="font-display text-2xl font-bold text-[#dfb47d]">48</span>
-                <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">Motif Batik</span>
-              </div>
-              <div className="h-4 w-px bg-white/20" />
-              <div>
-                <span className="font-display text-2xl font-bold text-[#dfb47d]">29</span>
-                <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">Kelas Ontologi</span>
-              </div>
-              <div className="h-4 w-px bg-white/20" />
-              <div>
-                <span className="font-display text-2xl font-bold text-[#dfb47d]">16</span>
-                <span className="ml-1.5 text-xs text-white/60 uppercase tracking-wider">Relasi Objek</span>
-              </div>
-              <div className="h-4 w-px bg-white/20" />
-              <div className="text-[11px] text-[#dfb47d] font-semibold flex items-center gap-1.5">
-                <Award className="size-4" /> UNESCO 2009
+            {/* Right Column: Interactive Hero Spotlight Carousel */}
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-white/15 to-white/5 p-6 backdrop-blur-xl shadow-2xl text-white">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-[#dfb47d] animate-ping" />
+                    <span className="text-[10px] font-bold uppercase tracking-[.2em] text-[#dfb47d]">
+                      Sorotan Motif Unggulan ({heroIndex + 1}/{HERO_FEATURED.length})
+                    </span>
+                  </div>
+
+                  {/* Carousel Controls */}
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() =>
+                        setHeroIndex(
+                          (prev) => (prev - 1 + HERO_FEATURED.length) % HERO_FEATURED.length,
+                        )
+                      }
+                      className="grid size-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer text-white"
+                      aria-label="Sebelumnya"
+                    >
+                      <ChevronLeft className="size-4" />
+                    </button>
+                    <button
+                      onClick={() =>
+                        setHeroIndex((prev) => (prev + 1) % HERO_FEATURED.length)
+                      }
+                      className="grid size-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer text-white"
+                      aria-label="Selanjutnya"
+                    >
+                      <ChevronRight className="size-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Motif Visual Display with Animated Transition */}
+                <div className="mt-5 relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-black/20 flex items-center justify-center p-4 border border-white/10 group">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${activeHeroMotif.palette} opacity-60`} />
+                  <div
+                    className={`motif motif-${activeHeroMotif.pattern} absolute inset-0 opacity-40 transition-all duration-700 group-hover:scale-110`}
+                  />
+
+                  <div className="relative z-10 size-full flex items-center justify-center">
+                    <BatikImage
+                      id={activeHeroMotif.id}
+                      alt={activeHeroMotif.name}
+                      className="max-h-full max-w-full object-contain drop-shadow-2xl transition duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="absolute top-3 left-3 z-20">
+                    <span className="rounded-full bg-black/50 backdrop-blur-md border border-white/20 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-[#dfb47d]">
+                      {activeHeroMotif.category}
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-3 right-3 z-20">
+                    <span className="rounded-full bg-white/20 backdrop-blur-md px-2.5 py-1 text-[9px] font-medium text-white">
+                      📍 {activeHeroMotif.region}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Philosophy and Action */}
+                <div className="mt-5">
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#fffaf0]">
+                    Batik {activeHeroMotif.name}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-white/75 leading-relaxed italic">
+                    “{activeHeroMotif.quote}”
+                  </p>
+
+                  <div className="mt-5 flex items-center justify-between pt-4 border-t border-white/10">
+                    {/* Dots indicator */}
+                    <div className="flex items-center gap-1.5">
+                      {HERO_FEATURED.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setHeroIndex(idx)}
+                          className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                            idx === heroIndex ? "w-6 bg-[#dfb47d]" : "w-2 bg-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        if (activeHeroBatikObj) setSelectedBatik(activeHeroBatikObj);
+                      }}
+                      className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#dfb47d] px-5 py-2 text-xs font-bold text-[#17251f] transition hover:bg-[#c69b3c] shadow-lg"
+                    >
+                      <span>Eksplorasi Triples</span>
+                      <ArrowRight className="size-3.5" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="absolute bottom-8 right-8 hidden items-center gap-3 text-[9px] uppercase tracking-[.25em] text-white/60 lg:flex">
-          <span className="h-px w-10 bg-white/30" />
-          Web Semantik • Apache Jena • Protégé OWL
-        </div>
       </section>
 
-      {/* Section: Jelajahi Motif & Pencarian Semantik */}
+      {/* Section: Peta Sebaran Pulau Nusantara (#peta-pulau) */}
+      <section id="peta-pulau" className="mx-auto max-w-[1240px] px-6 pt-16 lg:px-10">
+        <ArchipelagoMap
+          activePulau={activePulau}
+          onSelectPulau={(pulau) => {
+            setActivePulau(pulau);
+            document.querySelector("#jelajahi")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+      </section>
+
+      {/* Section: Jelajahi Motif & Pencarian Semantik (#jelajahi) */}
       <section
         id="jelajahi"
-        className="relative mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-28"
+        className="relative mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-24"
       >
         {/* Section Header */}
         <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <div className="eyebrow">Temukan Warisan</div>
+            <div className="eyebrow">Koleksi Terverifikasi</div>
             <h2 className="mt-3 font-display text-4xl tracking-[-.035em] text-[#24342d] sm:text-5xl">
               Jelajahi Ragam Motif
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-[#6d736e]">
-              Setiap motif merekam doa, filosofi sakral, dan teknik pembuatan khas daerah asalnya.
-              Klik pada motif untuk melihat relasi triples RDF dan format ontologi.
+              Setiap motif merekam doa, filosofi luhur, dan teknik khas daerah pembuatnya.
+              Klik kartu untuk mengeksplorasi graf triples OWL, bahan kerajinan, dan sintaks Turtle RDF.
             </p>
           </div>
 
-          {/* Quick Categories */}
+          {/* Main Category Filter Pills with Live Counts */}
           <div className="flex flex-wrap items-center gap-2">
-            {["Semua", "Keraton", "Pesisir", "Nusantara"].map((category) => (
+            {[
+              { key: "Semua", count: categoryCounts.Semua },
+              { key: "Keraton", count: categoryCounts.Keraton },
+              { key: "Pesisir", count: categoryCounts.Pesisir },
+              { key: "Nusantara", count: categoryCounts.Nusantara },
+            ].map(({ key, count }) => (
               <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`cursor-pointer rounded-full px-5 py-2.5 text-xs font-bold transition ${
-                  activeCategory === category
+                key={key}
+                onClick={() => setActiveCategory(key)}
+                className={`cursor-pointer rounded-full px-4 py-2 text-xs font-bold transition flex items-center gap-1.5 ${
+                  activeCategory === key
                     ? "bg-[#273b32] text-white shadow-md shadow-[#273b32]/20"
                     : "border border-[#d7cec0] bg-[#faf6ee] text-[#6b6e69] hover:border-[#9f603e] hover:text-[#9f603e]"
                 }`}
               >
-                {category}
+                <span>{key}</span>
+                <span
+                  className={`size-4 rounded-full text-[9px] grid place-items-center ${
+                    activeCategory === key ? "bg-white/20 text-white" : "bg-[#ded4c5] text-[#4a3528]"
+                  }`}
+                >
+                  {count}
+                </span>
               </button>
             ))}
           </div>
@@ -538,14 +892,18 @@ export default function App() {
               <div className="hidden sm:flex items-center rounded-lg border border-[#d7cbb9] bg-white p-1">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-1 rounded ${viewMode === "grid" ? "bg-[#273b32] text-white" : "text-[#6d736e]"}`}
+                  className={`p-1 rounded cursor-pointer ${
+                    viewMode === "grid" ? "bg-[#273b32] text-white" : "text-[#6d736e]"
+                  }`}
                   title="Tampilan Grid"
                 >
                   <LayoutGrid className="size-4" />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-1 rounded ${viewMode === "list" ? "bg-[#273b32] text-white" : "text-[#6d736e]"}`}
+                  className={`p-1 rounded cursor-pointer ${
+                    viewMode === "list" ? "bg-[#273b32] text-white" : "text-[#6d736e]"
+                  }`}
                   title="Tampilan List"
                 >
                   <List className="size-4" />
@@ -556,8 +914,7 @@ export default function App() {
 
           {/* Expanded Advanced Filters Panel */}
           {showAdvancedFilters && (
-            <div className="mt-4 pt-4 border-t border-[#ded4c5] grid gap-4 sm:grid-cols-2 lg:grid-cols-4 text-xs">
-              {/* Motif Category */}
+            <div className="mt-4 pt-4 border-t border-[#ded4c5] grid gap-4 sm:grid-cols-2 lg:grid-cols-4 text-xs animate-fade-in">
               <div>
                 <label className="block font-bold text-[#68432d] uppercase tracking-wider text-[10px] mb-1.5">
                   Kategori Ornamen
@@ -575,7 +932,6 @@ export default function App() {
                 </select>
               </div>
 
-              {/* Teknik */}
               <div>
                 <label className="block font-bold text-[#68432d] uppercase tracking-wider text-[10px] mb-1.5">
                   Teknik Pembuatan
@@ -593,7 +949,6 @@ export default function App() {
                 </select>
               </div>
 
-              {/* Acara Penggunaan */}
               <div>
                 <label className="block font-bold text-[#68432d] uppercase tracking-wider text-[10px] mb-1.5">
                   Acara & Ritual Adat
@@ -611,7 +966,6 @@ export default function App() {
                 </select>
               </div>
 
-              {/* Pulau / Wilayah Asal */}
               <div>
                 <label className="block font-bold text-[#68432d] uppercase tracking-wider text-[10px] mb-1.5">
                   Kepulauan Nusantara
@@ -634,14 +988,26 @@ export default function App() {
           )}
         </div>
 
-        {/* Counter Info */}
-        <div className="mb-6 flex items-center justify-between text-xs text-[#74766f]">
+        {/* Counter Info & Quick Compare banner */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-[#74766f]">
           <span>
-            Menampilkan <strong>{visibleBatiks.length}</strong> dari <strong>{allBatiks.length}</strong> motif batik
+            Menampilkan <strong>{visibleBatiks.length}</strong> dari{" "}
+            <strong>{allBatiks.length}</strong> motif batik
           </span>
-          <span className="text-[11px] text-[#9f603e] font-semibold">
-            Klik kartu untuk rincian triples RDF
-          </span>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => handleOpenComparison()}
+              className="inline-flex cursor-pointer items-center gap-1.5 text-[#9f603e] font-bold hover:underline"
+            >
+              <Scale className="size-3.5" />
+              <span>Buka Komparasi 2 Motif</span>
+            </button>
+            <span className="text-[#ded4c5]">•</span>
+            <span className="text-[11px] text-[#9f603e] font-semibold">
+              Klik kartu untuk rincian triples RDF
+            </span>
+          </div>
         </div>
 
         {/* Grid View */}
@@ -655,10 +1021,10 @@ export default function App() {
                 <article
                   key={motif.id}
                   onClick={() => setSelectedBatik(motif)}
-                  className="group cursor-pointer overflow-hidden rounded-[22px] border border-[#ded4c5] bg-[#f9f5ed] transition duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#473b2e]/10 flex flex-col justify-between"
+                  className="group cursor-pointer overflow-hidden rounded-[22px] border border-[#ded4c5] bg-[#f9f5ed] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-[#473b2e]/15 flex flex-col justify-between"
                 >
                   {/* Visual Header */}
-                  <div className={`relative h-56 overflow-hidden bg-gradient-to-br ${palette}`}>
+                  <div className={`relative h-60 overflow-hidden bg-gradient-to-br ${palette}`}>
                     {/* SVG Image Rendering */}
                     <div className="absolute inset-0 flex items-center justify-center p-3">
                       <BatikImage
@@ -688,6 +1054,18 @@ export default function App() {
                         {motif.wilayah?.pulau}
                       </span>
                     </div>
+
+                    {/* Quick Compare Overlay Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenComparison(motif);
+                      }}
+                      className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold text-[#dfb47d] border border-white/20 flex items-center gap-1"
+                      title="Bandingkan dengan motif lain"
+                    >
+                      <Scale className="size-3" /> Bandingkan
+                    </button>
                   </div>
 
                   {/* Body Content */}
@@ -698,7 +1076,7 @@ export default function App() {
                       </div>
 
                       <div className="mt-2 flex items-center justify-between">
-                        <h3 className="font-display text-[23px] font-bold leading-snug text-[#26362f]">
+                        <h3 className="font-display text-[23px] font-bold leading-snug text-[#26362f] group-hover:text-[#a35f3d] transition-colors">
                           {motif.nama}
                         </h3>
                         <div className="grid size-9 shrink-0 place-items-center rounded-full border border-[#d7cbb9] text-[#8e563a] transition group-hover:bg-[#8e563a] group-hover:text-white">
@@ -742,20 +1120,39 @@ export default function App() {
                 >
                   <div className="flex items-center gap-4">
                     <div className="size-16 rounded-xl overflow-hidden bg-[#efe6d7] shrink-0 border border-[#d7cec0]">
-                      <BatikImage id={motif.id} alt={motif.nama} className="size-full object-contain p-1" />
+                      <BatikImage
+                        id={motif.id}
+                        alt={motif.nama}
+                        className="size-full object-contain p-1"
+                      />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[#a2613f]">
                         <span>{category}</span>
                         <span>•</span>
-                        <span>{motif.wilayah?.nama}, {motif.wilayah?.provinsi}</span>
+                        <span>
+                          {motif.wilayah?.nama}, {motif.wilayah?.provinsi}
+                        </span>
                       </div>
-                      <h3 className="font-display text-lg font-bold text-[#26362f]">{motif.nama}</h3>
-                      <p className="text-xs text-[#74766f] line-clamp-1 max-w-xl">{motif.maknaFilosofis || motif.deskripsi}</p>
+                      <h3 className="font-display text-lg font-bold text-[#26362f]">
+                        {motif.nama}
+                      </h3>
+                      <p className="text-xs text-[#74766f] line-clamp-1 max-w-xl">
+                        {motif.maknaFilosofis || motif.deskripsi}
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenComparison(motif);
+                      }}
+                      className="px-2.5 py-1 rounded-full border border-[#d7cbb9] text-[10px] font-bold text-[#4a3528] hover:bg-white flex items-center gap-1"
+                    >
+                      <Scale className="size-3" /> Bandingkan
+                    </button>
                     <span className="px-2.5 py-1 rounded-full bg-[#eee5d7] text-[11px] font-semibold text-[#4a3528]">
                       {motif.jenisLabel}
                     </span>
@@ -785,6 +1182,34 @@ export default function App() {
             </button>
           </div>
         )}
+      </section>
+
+      {/* Section: Graf Pengetahuan Semantik Interaktif (#graf-ontologi) */}
+      <section
+        id="graf-ontologi"
+        className="mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-24"
+      >
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <div className="eyebrow">Visualisasi Jaringan RDF</div>
+            <h2 className="mt-3 font-display text-4xl tracking-[-.03em] text-[#24342d] sm:text-5xl">
+              Graf Pengetahuan Semantik Interaktif
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#6d736e]">
+              Visualisasi node-link interaktif yang menghubungkan seluruh 48 individu batik, wilayah
+              asal, teknik pembuatan, lilin malam, hingga acara adat. Seret node untuk melihat
+              gaya fisik force-directed simulasinya.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#8a5232]">
+            <Sparkles className="size-4" />
+            <span>Simulasi Fisika 60 FPS • Drag, Zoom & Pan</span>
+          </div>
+        </div>
+
+        {/* Interactive Graph Component */}
+        <SemanticGraphViewer onSelectBatik={(b) => setSelectedBatik(b)} />
       </section>
 
       {/* Section: Peta Pengetahuan Ontologi (#ontologi) */}
@@ -1002,6 +1427,14 @@ export default function App() {
           }}
         />
       )}
+
+      {/* Interactive Motif Comparison Modal */}
+      <MotifComparisonModal
+        initialBatikA={compareInitialBatik}
+        isOpen={compareModalOpen}
+        onClose={() => setCompareModalOpen(false)}
+        onOpenDetail={(b) => setSelectedBatik(b)}
+      />
     </main>
   );
 }
