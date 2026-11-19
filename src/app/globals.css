@@ -3,11 +3,62 @@
 @tailwind utilities;
 
 :root {
-  --background: #FAF6EE;
+  --background: #FAF7F2;
   --foreground: #2A180B;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0E6D2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C59B27;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #99732B;
+}
+
+/* Subtle Batik Motif Watermark Texture */
+.batik-bg-pattern {
+  background-color: #FAF7F2;
+  background-image: radial-gradient(#C59B27 0.75px, transparent 0.75px), radial-gradient(#99732B 0.75px, #FAF7F2 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F3E5AB 0%, #C59B27 50%, #E8C56A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

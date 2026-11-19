@@ -1,17 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import ontologyBundle from '@/lib/ontologyData.json';
+
+export function generateStaticParams() {
+  return ontologyBundle.batiks.map((b: { id: string }) => ({
+    id: b.id,
+  }));
+}
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-  const cleanId = id.replace(/\.svg$/, '');
+  const cleanId = params.id.replace(/\.svg$/, '');
   const possiblePaths = [
+    path.join(process.cwd(), 'public', 'gambar', `${cleanId}.svg`),
     path.join(process.cwd(), 'gambar', `${cleanId}.svg`),
     path.join(process.cwd(), 'src', 'main', 'resources', 'gambar', `${cleanId}.svg`),
-    path.join(process.cwd(), 'public', 'img', `${cleanId}.svg`)
+    path.join(process.cwd(), 'public', 'img', `${cleanId}.svg`),
+    path.join(process.cwd(), 'public', 'img', cleanId)
   ];
 
   for (const p of possiblePaths) {

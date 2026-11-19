@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="100%" height="100%">
+    
+      <defs>
+        <pattern id="geom-Batik_Ceplok" width="60" height="60" patternUnits="userSpaceOnUse">
+          <rect width="60" height="60" fill="#3B2314" />
+          <!-- Belah ketupat geometris -->
+          <polygon points="30,5 55,30 30,55 5,30" fill="none" stroke="#D4AF37" stroke-width="2" />
+          <polygon points="30,12 48,30 30,48 12,30" fill="#FAF2DE" opacity="0.85" />
+          <circle cx="30" cy="30" r="4" fill="#D4AF37" />
+          <!-- Ornamen silang sudut -->
+          <circle cx="0" cy="0" r="3" fill="#D4AF37" />
+          <circle cx="60" cy="0" r="3" fill="#D4AF37" />
+          <circle cx="0" cy="60" r="3" fill="#D4AF37" />
+          <circle cx="60" cy="60" r="3" fill="#D4AF37" />
+          <line x1="0" y1="30" x2="10" y2="30" stroke="#D4AF37" stroke-width="1.5" />
+          <line x1="50" y1="30" x2="60" y2="30" stroke="#D4AF37" stroke-width="1.5" />
+          <line x1="30" y1="0" x2="30" y2="10" stroke="#D4AF37" stroke-width="1.5" />
+          <line x1="30" y1="50" x2="30" y2="60" stroke="#D4AF37" stroke-width="1.5" />
+        </pattern>
+      </defs>
+      <rect width="400" height="260" fill="url(#geom-Batik_Ceplok)" />
+    
+    <!-- Border Museum Elegan -->
+    <rect x="8" y="8" width="384" height="244" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.85" />
+    <rect x="12" y="12" width="376" height="236" fill="none" stroke="#FAF2DE" stroke-width="0.75" opacity="0.6" />
+    <!-- Label Plat Motif -->
+    <rect x="20" y="210" width="360" height="34" rx="4" fill="#0A0604" fill-opacity="0.88" stroke="#D4AF37" stroke-width="1" />
+    <text x="32" y="231" font-family="'Cinzel', 'Plus Jakarta Sans', serif" font-size="13" font-weight="bold" fill="#FBF8F1" letter-spacing="0.5">Ceplok Yogyakarta</text>
+    <text x="368" y="231" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="600" fill="#D4AF37" text-transform="uppercase">Ceplok | geometris</text>
+  </svg>

@@ -65,36 +65,59 @@ public class BatikServer {
         });
 
         srv.createContext("/api/batik", ex -> kirim(ex, 200, "application/json; charset=utf-8", json));
-        srv.createContext("/img/", ex -> {
-            String path = ex.getRequestURI().getPath().replaceFirst("^/img/", "");
-            String id = path.replaceAll("[^A-Za-z0-9_]", "");
+
+        // Handler untuk penyajian citra motif batik (/img/ dan /gambar/)
+        com.sun.net.httpserver.HttpHandler imgHandler = ex -> {
+            String rawPath = ex.getRequestURI().getPath();
+            String path = rawPath.replaceFirst("^/(img|gambar)/", "");
+            
+            // 1. Coba exact match path
+            for (String folder : new String[]{"src/main/resources/gambar", "gambar", "public/gambar", "target/classes/gambar", "out/gambar"}) {
+                File img = new File(folder, path);
+                if (img.exists() && img.isFile()) {
+                    kirim(ex, 200, tentukanMime(path), Files.readAllBytes(img.toPath()));
+                    return;
+                }
+            }
+            try (InputStream in = BatikServer.class.getResourceAsStream("/gambar/" + path)) {
+                if (in != null) {
+                    kirim(ex, 200, tentukanMime(path), in.readAllBytes());
+                    return;
+                }
+            } catch (Exception ignored) {}
+
+            // 2. Coba id dengan ekstensi
+            String id = path.replaceFirst("\\.[a-zA-Z0-9]+$", "").replaceAll("[^A-Za-z0-9_]", "");
             for (String ext : new String[]{"svg", "png", "jpg", "jpeg", "webp", "gif"}) {
                 String fileName = id + "." + ext;
                 // Coba muat dari classpath
                 try (InputStream in = BatikServer.class.getResourceAsStream("/gambar/" + fileName)) {
                     if (in != null) {
-                        String mime = ext.equals("svg") ? "image/svg+xml" : (ext.equals("jpg") ? "image/jpeg" : "image/" + ext);
-                        kirim(ex, 200, mime, in.readAllBytes());
+                        kirim(ex, 200, tentukanMime(fileName), in.readAllBytes());
                         return;
                     }
                 } catch (Exception ignored) {}
 
                 // Coba muat dari direktori file fisik
-                for (String folder : new String[]{"gambar", "src/main/resources/gambar", "target/classes/gambar"}) {
+                for (String folder : new String[]{"src/main/resources/gambar", "gambar", "public/gambar", "public/img", "target/classes/gambar", "out/gambar"}) {
                     File img = new File(folder, fileName);
                     if (img.exists() && img.isFile()) {
-                        String mime = ext.equals("svg") ? "image/svg+xml" : (ext.equals("jpg") ? "image/jpeg" : "image/" + ext);
-                        kirim(ex, 200, mime, Files.readAllBytes(img.toPath()));
+                        kirim(ex, 200, tentukanMime(fileName), Files.readAllBytes(img.toPath()));
                         return;
                     }
                 }
             }
-            kirim(ex, 404, "text/plain", new byte[0]);
-        });
+
+            // Fallback SVG anggun jika file fisik tidak ada
+            kirim(ex, 200, "image/svg+xml", svgFallback(id.isEmpty() ? "Motif Batik" : id));
+        };
+
+        srv.createContext("/img/", imgHandler);
+        srv.createContext("/gambar/", imgHandler);
         srv.start();
         String url = "http://localhost:" + port;
         System.out.println("=================================================");
-        System.out.println(" BATIK NUSANTARA GUI (Next.js / Web Semantik)   ");
+        System.out.println(" BATIK NUSANTARA GUI (React Vite / Web Semantik) ");
         System.out.println(" Berjalan di: " + url);
         System.out.println(" Data Ontologi: " + f.getName());
         System.out.println("=================================================");
@@ -102,12 +125,10 @@ public class BatikServer {
     }
 
     static byte[] muatHtml() {
-        try (InputStream in = BatikServer.class.getResourceAsStream("/index.html")) {
-            if (in != null) return in.readAllBytes();
-        } catch (Exception ignored) {}
-
         for (String lokasi : new String[]{
+            "dist/index.html",
             "src/main/resources/index.html",
+            "target/classes/index.html",
             "out/index.html",
             "index.html",
             "public/index.html"
@@ -117,6 +138,10 @@ public class BatikServer {
                 try { return Files.readAllBytes(f.toPath()); } catch (Exception ignored) {}
             }
         }
+
+        try (InputStream in = BatikServer.class.getResourceAsStream("/index.html")) {
+            if (in != null) return in.readAllBytes();
+        } catch (Exception ignored) {}
 
         String fallback = "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Batik GUI</title></head>"
                 + "<body style='font-family:sans-serif;padding:40px;text-align:center;background:#faf7f2;color:#3e2723;'>"
@@ -128,14 +153,28 @@ public class BatikServer {
 
     static byte[] cariResource(String path) {
         if (path.startsWith("/")) path = path.substring(1);
+        String altPath = path.startsWith("img/") ? path.replaceFirst("^img/", "gambar/") : null;
+        
         try (InputStream in = BatikServer.class.getResourceAsStream("/" + path)) {
             if (in != null) return in.readAllBytes();
         } catch (Exception ignored) {}
 
-        for (String folder : new String[]{"src/main/resources", "out", "public", "."}) {
+        if (altPath != null) {
+            try (InputStream in = BatikServer.class.getResourceAsStream("/" + altPath)) {
+                if (in != null) return in.readAllBytes();
+            } catch (Exception ignored) {}
+        }
+
+        for (String folder : new String[]{"dist", "src/main/resources", "out", "public", ".", "target/classes"}) {
             File f = new File(folder, path);
             if (f.exists() && f.isFile()) {
                 try { return Files.readAllBytes(f.toPath()); } catch (Exception ignored) {}
+            }
+            if (altPath != null) {
+                File fAlt = new File(folder, altPath);
+                if (fAlt.exists() && fAlt.isFile()) {
+                    try { return Files.readAllBytes(fAlt.toPath()); } catch (Exception ignored) {}
+                }
             }
         }
         return null;
@@ -160,9 +199,26 @@ public class BatikServer {
 
     static void kirim(HttpExchange ex, int code, String type, byte[] body) throws java.io.IOException {
         ex.getResponseHeaders().set("Content-Type", type);
+        ex.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
         ex.sendResponseHeaders(code, body.length == 0 ? -1 : body.length);
         if (body.length > 0) ex.getResponseBody().write(body);
         ex.close();
+    }
+
+    static byte[] svgFallback(String title) {
+        String safeTitle = title.replace("_", " ").replace("<", "").replace(">", "");
+        String svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' width='100%' height='100%'>"
+            + "<defs><linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>"
+            + "<stop offset='0%' stop-color='#0F172A'/><stop offset='100%' stop-color='#1E293B'/></linearGradient></defs>"
+            + "<rect width='400' height='300' fill='url(#bgGrad)'/>"
+            + "<rect x='10' y='10' width='380' height='280' fill='none' stroke='#D97706' stroke-width='1.5' stroke-dasharray='6 4' rx='12'/>"
+            + "<circle cx='200' cy='135' r='55' fill='none' stroke='#D97706' stroke-width='2'/>"
+            + "<circle cx='200' cy='135' r='40' fill='none' stroke='#F59E0B' stroke-width='1' stroke-dasharray='3 3'/>"
+            + "<text x='200' y='142' fill='#FBBF24' font-family='sans-serif' font-size='12' font-weight='bold' text-anchor='middle'>Batik Nusantara</text>"
+            + "<text x='200' y='225' fill='#E2E8F0' font-family='sans-serif' font-size='14' font-weight='bold' text-anchor='middle'>" + safeTitle + "</text>"
+            + "<text x='200' y='245' fill='#94A3B8' font-family='sans-serif' font-size='11' text-anchor='middle'>Ontologi Web Semantik</text>"
+            + "</svg>";
+        return svg.getBytes(StandardCharsets.UTF_8);
     }
 
     static File cariFile(String[] args) {

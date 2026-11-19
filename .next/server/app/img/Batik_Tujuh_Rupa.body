@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="100%" height="100%">
+    
+      <defs>
+        <pattern id="flora-Batik_Tujuh_Rupa" width="80" height="80" patternUnits="userSpaceOnUse">
+          <rect width="80" height="80" fill="#1F2A1E" />
+          <!-- Sulur Dedaunan Lung-lungan -->
+          <path d="M 10 70 Q 40 40 70 70" fill="none" stroke="#D4AF37" stroke-width="2.5" />
+          <path d="M 70 10 Q 40 40 10 10" fill="none" stroke="#D4AF37" stroke-width="2.5" />
+          <!-- Kelopak Bunga Lotus / Jeumpa / Buketan -->
+          <circle cx="40" cy="40" r="6" fill="#D4AF37" />
+          <ellipse cx="40" cy="26" rx="5" ry="9" fill="#EFE5CE" />
+          <ellipse cx="40" cy="54" rx="5" ry="9" fill="#EFE5CE" />
+          <ellipse cx="26" cy="40" rx="9" ry="5" fill="#EFE5CE" />
+          <ellipse cx="54" cy="40" rx="9" ry="5" fill="#EFE5CE" />
+          <circle cx="40" cy="40" r="3" fill="#B91C1C" />
+          <!-- Daun di sudut -->
+          <path d="M 10 10 Q 25 15 20 30 Q 12 25 10 10 Z" fill="#D4AF37" opacity="0.7" />
+          <path d="M 70 70 Q 55 65 60 50 Q 68 55 70 70 Z" fill="#D4AF37" opacity="0.7" />
+        </pattern>
+      </defs>
+      <rect width="400" height="260" fill="url(#flora-Batik_Tujuh_Rupa)" />
+    
+    <!-- Border Museum Elegan -->
+    <rect x="8" y="8" width="384" height="244" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.85" />
+    <rect x="12" y="12" width="376" height="236" fill="none" stroke="#EFE5CE" stroke-width="0.75" opacity="0.6" />
+    <!-- Label Plat Motif -->
+    <rect x="20" y="210" width="360" height="34" rx="4" fill="#0A0604" fill-opacity="0.88" stroke="#D4AF37" stroke-width="1" />
+    <text x="32" y="231" font-family="'Cinzel', 'Plus Jakarta Sans', serif" font-size="13" font-weight="bold" fill="#FBF8F1" letter-spacing="0.5">Tujuh Rupa Pekalongan</text>
+    <text x="368" y="231" text-anchor="end" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="600" fill="#D4AF37" text-transform="uppercase">Flora Fauna Khas | flora</text>
+  </svg>
